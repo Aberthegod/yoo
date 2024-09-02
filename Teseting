@@ -150,6 +150,8 @@ local Button = Tab:CreateButton({
  })
 
  local DupeWeights = DupeTab:CreateLabel("Weights: 0")
+ 
+if DupeWeights then
 
  repeat
     wait(.1)
@@ -169,6 +171,8 @@ local Button = Tab:CreateButton({
     end
     DupeWeights:Set("Weights: "..num)
 until num == 9999999999999
+
+end
 
  local Pro = Window:CreateTab("Performance", 4483362458)
 
