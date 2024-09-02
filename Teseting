@@ -1,0 +1,252 @@
+local ArrayField = loadstring(game:HttpGet('https://raw.githubusercontent.com/UI-Interface/ArrayField/main/Source.lua'))()
+
+local Window = ArrayField:CreateWindow({
+    Name = "Glizzy Hub",
+    LoadingTitle = "Glizzy Hub (Private)",
+    LoadingSubtitle = "by Antwan/Juan",
+    ConfigurationSaving = {
+       Enabled = true,
+       FolderName = nil,
+       FileName = "Glizzy"
+    },
+    Discord = {
+       Enabled = false,
+       Invite = "noinvitelink",
+       RememberJoins = true
+    },
+    KeySystem = true,
+    KeySettings = {
+       Title = "Glizzy Hub Key System",
+       Subtitle = "Key System",
+       Note = "No method of obtaining the key is provided",
+       FileName = "Key",
+       SaveKey = true,
+       GrabKeyFromSite = false,
+       Actions = {
+             [1] = {
+                 Text = 'Click here to copy the key link <--',
+                 OnPress = function()
+                     print('Pressed')
+                 end,
+                 }
+             },
+       Key = {"1jZOoFTA"}
+    }
+ })
+
+ Window:Prompt({
+    Title = 'Glizzy Hub (Private)',
+    SubTitle = 'Boxing Simulator Farm.',
+    Content = '.',
+    Actions = {
+        Accept = {
+            Name = 'Accept',
+            Callback = function()
+                print('Pressed')
+            end,
+        }
+    }
+})
+
+local Tab = Window:CreateTab("Farming", 2024893678)
+
+local Section = Tab:CreateSection("Farm Section",false)
+
+local Button = Tab:CreateButton({
+    Name = "Start Farming",
+    Interact = 'Click',
+    Callback = function()
+        getgenv().Lifter = true;
+	
+        while wait(0.611201) do
+            if getgenv().Lifter == true then
+                for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v.Name == "Double Weight" then v:Activate() end
+                end	
+            end
+        end
+    end,
+ })
+
+ local Button = Tab:CreateButton({
+    Name = "Stop Farming",
+    Interact = 'Click',
+    Callback = function()
+    getgenv().Lifter = false;
+    end,
+ })
+
+ local Section = Tab:CreateSection("Equip Section",false)
+
+ local Toggle = Tab:CreateToggle({
+    Name = "Equip Weights",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        _G.Equip = Value
+        while _G.Equip do
+            wait(.5)
+            for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                if v.Name == "Double Weight" then
+                    v.Parent = game.Players.LocalPlayer.Character
+                end
+            end
+        end
+    end,
+ })
+
+ local Section = Tab:CreateTab("Afk",false)
+
+ local Button = Tab:CreateButton({
+    Name = "Anti Afk",
+    Interact = 'Click',
+    Callback = function()
+        local vu = game:GetService("VirtualUser")
+        game:GetService("Players").LocalPlayer.Idled:connect(function()
+            vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+            wait(1)
+            vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+        end)
+        ArrayField:Notify({
+            Title = "Anti Afk",
+            Content = "Activated You Wont Get Kicked!",
+            Duration = 6.5,
+            Image = 4483362458,
+            Actions = { -- Notification Buttons
+               Ignore = {
+                  Name = "Okay!",
+                  Callback = function()
+                  print("The user tapped Okay!")
+               end
+            },
+          },
+         })
+    end,
+ })
+
+ local Pro = Window:CreateTab("Performance", 12702831873)
+
+ local Section = Pro:CreateSection("Reduce Lag",false)
+
+ local Button = Pro:CreateButton({
+    Name = "Gain Fps",
+    Interact = 'Click',
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/mmEr60d5", true))()
+    end,
+ })
+
+ local Button = Pro:CreateButton({
+    Name = "Delete Rumble",
+    Interact = 'Click',
+    Callback = function()
+        game.ReplicatedFirst.TourneyQ:Destroy()
+    end,
+ })
+
+ local Button = Pro:CreateButton({
+    Name = "Clear Sky",
+    Interact = 'Click',
+    Callback = function()
+        game:GetService("Lighting").NormalSky:Destroy()
+    end,
+ })
+ 
+ local Button = Pro:CreateButton({
+    Name = "Clear Sky",
+    Interact = 'Click',
+    Callback = function()
+        game:GetService("Lighting").NormalSky:Destroy()
+    end,
+ })
+
+ local Button = Pro:CreateButton({
+    Name = "Delete Hud (Keeps Strength)",
+    Interact = 'Click',
+    Callback = function()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.ProteinBuy:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.OpenShop:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.OpenReb:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.ImageLabel:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.OpenPack:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.PopSound:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.BlackMarket:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.LiftRemind:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.MuscleGain:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.RebFrame:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.ShopFrame:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.OpenSkins:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.Bar:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.StrengthHolder.ImageLabel:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.StrengthHolder.TextLabel.TextLabel:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.CashHolder:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.CashButton:Destroy()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.RumbleHolder:Destroy()
+    end,
+ })
+
+ local Button = Pro:CreateButton({
+    Name = "Delete Hud",
+    Interact = 'Click',
+    Callback = function()
+        game:GetService("Players").LocalPlayer.PlayerGui.HUD:Destroy()
+    end,
+ })
+
+ local Button = Pro:CreateButton({
+    Name = "Delete Textures",
+    Interact = 'Click',
+    Callback = function()
+        local a = game
+                local b = a.Workspace
+                local c = a.Lighting
+                local d = b.Terrain
+                d.WaterWaveSize = 0
+                d.WaterWaveSpeed = 0
+                d.WaterReflectance = 0
+                d.WaterTransparency = 0
+                c.GlobalShadows = false
+                c.FogEnd = 9e9
+                settings().Rendering.QualityLevel = "Level01"
+                for e, f in pairs(a:GetDescendants()) do
+                    if f:IsA("Part") or f:IsA("Union") or f:IsA("CornerWedgePart") or f:IsA("TrussPart") then
+                        f.Reflectance = 0
+                    elseif f:IsA("Decal") or f:IsA("Texture") then
+                        f.Transparency = 0
+                    elseif f:IsA("ParticleEmitter") or f:IsA("Trail") then
+                        f.Lifetime = NumberRange.new(0)
+                    elseif f:IsA("Explosion") then
+                        f.BlastPressure = 0
+                        f.BlastRadius = 0
+                    elseif f:IsA("Fire") or f:IsA("SpotLight") or f:IsA("Smoke") or f:IsA("Sparkles") then
+                        f.Enabled = false
+                    elseif f:IsA("MeshPart") then
+                        f.Reflectance = 0
+                    end
+                    if f:IsA("Fire") then
+                        f:Destroy()
+                        wait()
+                    end
+                    if f:IsA("ParticleEmitter") then
+                        f:Destroy()
+                        wait()
+                    end
+                end
+                for e, g in pairs(c:GetChildren()) do
+                    if
+                        g:IsA("BlurEffect") or g:IsA("SunRaysEffect") or g:IsA("ColorCorrectionEffect") or g:IsA("BloomEffect") or
+                        g:IsA("DepthOfFieldEffect")
+                    then
+                        g.Enabled = false
+                    end
+                end
+                sethiddenproperty(game.Lighting, "Technology", "Compatibility")
+    end,
+ })
+
+ local Tele = Window:CreateTab("Teleportation", 4483362458)
+
+ local Section = Tele:CreateSection("Teleport", false)
+
+ 
+
