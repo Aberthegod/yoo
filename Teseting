@@ -95,7 +95,7 @@ local Button = Tab:CreateButton({
     end,
  })
 
- local Section = Tab:CreateTab("Afk",false)
+ local Section = Tab:CreateSection("Afk",false)
 
  local Button = Tab:CreateButton({
     Name = "Anti Afk",
@@ -248,5 +248,5 @@ local Button = Tab:CreateButton({
 
  local Section = Tele:CreateSection("Teleport", false)
 
- 
+
 
