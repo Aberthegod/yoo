@@ -150,29 +150,36 @@ local Button = Tab:CreateButton({
  })
 
  local DupeWeights = DupeTab:CreateLabel("Weights: 0")
- 
+
 if DupeWeights then
+    spawn(function()
+        while true do
+            wait(0.1)
+            local num = 0
 
- repeat
-    wait(.1)
-    local num = 0
-    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-        if v.Name == "Double Weight" then
-            num += 1
-        end
-    end
+            for _, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                if v.Name == "Double Weight" then
+                    num += 1
+                end
+            end
 
-    if num == 0 then
-        for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-            if v.Name == "Double Weight" then
-                num += 1
+            if num == 0 then
+                for _, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v.Name == "Double Weight" then
+                        num += 1
+                    end
+                end
+            end
+
+            DupeWeights:Set("Weights: " .. num)
+
+            if num >= 9999999999999 then
+                break
             end
         end
-    end
-    DupeWeights:Set("Weights: "..num)
-until num == 9999999999999
-
+    end)
 end
+
 
  local Pro = Window:CreateTab("Performance", 4483362458)
 
