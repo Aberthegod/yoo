@@ -296,7 +296,7 @@ local Section = Pro:CreateSection("Reduce Lag", false)
 
  local Section = info:CreateSection("Your Info", false)
 
- local TTS = Info:CreateLabel("Raw Strength: 0")
+ local TTS = info:CreateLabel("Raw Strength: 0")
 
 if TTS then
     spawn(function()
