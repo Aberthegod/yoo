@@ -30,7 +30,7 @@ local Window = ArrayField:CreateWindow({
                  end,
                  }
              },
-       Key = {"Aber_Goat"}
+       Key = {"123"}
     }
  })
 
@@ -180,10 +180,9 @@ if DupeWeights then
     end)
 end
 
+local Pro = Window:CreateTab("Performance", 4483362458)
 
- local Pro = Window:CreateTab("Performance", 4483362458)
-
- local Section = Pro:CreateSection("Reduce Lag",false)
+local Section = Pro:CreateSection("Reduce Lag", false)
 
  local Button = Pro:CreateButton({
     Name = "Gain Fps",
