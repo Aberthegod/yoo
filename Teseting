@@ -361,13 +361,53 @@ if EarnedL then
                     str:GetPropertyChangedSignal("Value"):Connect(function()
                         local delta = (str.Value - curvalue);
                         earned = earned + delta;
-                        EarnedL:Set("Strength Earned: "..Format(earned,1));
+                        EarnedL:Set("Strength Earned: "..Format(earned,0));
                         curvalue = str.Value;
                     end)
     end)
 end
 
+local Timer = infoTab:CreateLabel("Time Spent: 0d 0h 0m 0")
+
+if Timer then
+    spawn(function()
+        local startTime = os.time()
+
+                    local function formatTime(seconds)
+                        local days = math.floor(seconds / 86400)
+                        seconds = seconds % 86400
+                        local hours = math.floor(seconds / 3600)
+                        seconds = seconds % 3600
+                        local minutes = math.floor(seconds / 60)
+                        seconds = seconds % 60
+                        return string.format("%dd %02dh %02dm %02d", days, hours, minutes, seconds)
+                    end
+
+                    while true do
+                        local elapsedTime = os.time() - startTime
+                        Timer:Set("Time Spent: "..formatTime(elapsedTime))
+                        wait(1)
+                    end
+    end)
+end
+
  local Section = infoTab:CreateSection("Strength Per Second", false)
+
+ local Sps = infoTab:CreateLabel("Strength Per Sec: 0")
+
+ if Sps then
+    spawn(function()
+        local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(1)y=w.Value;z=y-x;Sps:Set("Strength Per Sec"..z) end
+    end)
+ end
+
+ local Sps2 = infoTab:CreateLabel("Strength Per Min: 0")
+
+ if Sps2 then
+    spawn(function()
+        local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(60)y=w.Value;z=y-x;Sps:Set("Strength Per Min"..z) end
+    end)
+ end
 
  local Tele = Window:CreateTab("Teleportation", 4483362458)
 
