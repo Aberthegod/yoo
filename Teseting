@@ -304,7 +304,8 @@ if TTS then
             Wait(0.1)
             local plr = game:GetService("Players").LocalPlayer
             local playerName = plr.Name
-            TTS:Set("Raw Strength: "..game.ReplicatedStorage.Data[playerName].Strength.Value)
+            local RawS = game.ReplicatedStorage.Data[playerName].Strength.Value
+            TTS:Set("Raw Strength: "..RawS)
         end
     end)
 end
