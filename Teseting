@@ -393,7 +393,7 @@ end
 
  local Section = infoTab:CreateSection("Strength Per Second", false)
 
- local Sps = infoTab:CreateLabel("Strength Per Sec: 0")
+ local Sps = infoTab:CreateLabel("Strength Per Sec: Calculating...")
 
  if Sps then
     spawn(function()
@@ -401,7 +401,7 @@ end
     end)
  end
 
- local Sps2 = infoTab:CreateLabel("Strength Per Min: 0")
+ local Sps2 = infoTab:CreateLabel("Strength Per Min: Calculating...")
 
  if Sps2 then
     spawn(function()
@@ -409,7 +409,7 @@ end
     end)
  end
 
- local Sps3 = infoTab:CreateLabel("Strength Per Hour: 0")
+ local Sps3 = infoTab:CreateLabel("Strength Per Hour: Calculating...")
 
  if Sps3 then
     spawn(function()
@@ -417,7 +417,7 @@ end
     end)
  end
 
- local Sps4 = infoTab:CreateLabel("Strength Per Day: 0")
+ local Sps4 = infoTab:CreateLabel("Strength Per Day: Calculating...")
 
  if Sps4 then
     spawn(function()
