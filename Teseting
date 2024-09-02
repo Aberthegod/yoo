@@ -346,9 +346,9 @@ local EarnedL = infoTab:CreateLabel("Strength Earned: 0")
 if EarnedL then
     spawn(function()
         wait(0.1)
-        local str = game:GetService("Players").LocalPlayer.leaderstats.Strength
-                    local curvalue = str.Value
-                    local earned = 0
+        local str = game:GetService("Players").LocalPlayer.leaderstats.Strength;
+                    local curvalue = str.Value;
+                    local earned = 0;
                     local formattedEarned = str
                     local SuffixList = { "", "K", "M", "B", "T" }
                     local function Format(value, idp)
@@ -359,10 +359,10 @@ if EarnedL then
                         return ("%." .. idp .. "f%s"):format(norm, suffix)
                     end 
                     str:GetPropertyChangedSignal("Value"):Connect(function()
-                        local delta = (str.Value - curvalue)
-                        earned = earned + delta
-                        EarnedL:Set("Strength Earned: "..Format(earned,1))
-                        curvalue = str.Value
+                        local delta = (str.Value - curvalue);
+                        earned += delta;
+                        EarnedL:Set("Strength Earned: "..Format(earned,1);)
+                        curvalue = str.Value;
                     end)
     end)
 end
