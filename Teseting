@@ -159,14 +159,14 @@ if DupeWeights then
 
             for _, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                 if v.Name == "Double Weight" then
-                    num += 1
+                    num = num + 1
                 end
             end
 
             if num == 0 then
                 for _, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                     if v.Name == "Double Weight" then
-                        num += 1
+                        num = num + 1
                     end
                 end
             end
@@ -360,8 +360,8 @@ if EarnedL then
                     end 
                     str:GetPropertyChangedSignal("Value"):Connect(function()
                         local delta = (str.Value - curvalue);
-                        earned += delta;
-                        EarnedL:Set("Strength Earned: "..Format(earned,1);)
+                        earned = earned + delta;
+                        EarnedL:Set("Strength Earned: "..Format(earned,1));
                         curvalue = str.Value;
                     end)
     end)
