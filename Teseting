@@ -292,11 +292,11 @@ local Section = Pro:CreateSection("Reduce Lag", false)
     end,
  })
 
- local info = Window:CreateTab("Information", 4483362458)
+ local infoTab = Window:CreateTab("Information", 4483362458)
 
- local Section = info:CreateSection("Your Info", false)
+ local Section = infoTab:CreateSection("Your Info", false)
 
- local TTS = info:CreateLabel("Raw Strength: 0")
+ local TTS = infoTab:CreateLabel("Raw Strength: 0")
 
 if TTS then
     spawn(function()
