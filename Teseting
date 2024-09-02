@@ -405,7 +405,7 @@ end
 
  if Sps2 then
     spawn(function()
-        local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(60)y=w.Value;z=y-x;Sps:Set("Strength Per Min: "..z) end
+        local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(60)y=w.Value;z=y-x;Sps2:Set("Strength Per Min: "..z) end
     end)
  end
 
@@ -413,7 +413,7 @@ end
 
  if Sps3 then
     spawn(function()
-        local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(3600)y=w.Value;z=y-x;Sps:Set("Strength Per Hour: "..z) end
+        local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(3600)y=w.Value;z=y-x;Sps3:Set("Strength Per Hour: "..z) end
     end)
  end
 
@@ -421,7 +421,7 @@ end
 
  if Sps4 then
     spawn(function()
-        local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(86400)y=w.Value;z=y-x;Sps:Set("Strength Per Day: "..z) end
+        local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(86400)y=w.Value;z=y-x;Sps4:Set("Strength Per Day: "..z) end
     end)
  end
 
