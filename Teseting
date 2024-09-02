@@ -37,7 +37,7 @@ local Window = ArrayField:CreateWindow({
  Window:Prompt({
     Title = 'Glizzy Hub (Private)',
     SubTitle = 'Boxing Simulator Farm.',
-    Content = '.',
+    Content = 'Please Accept To Continue.',
     Actions = {
         Accept = {
             Name = 'Accept',
@@ -124,17 +124,17 @@ local Button = Tab:CreateButton({
     end,
  })
 
- local Dupe = Window:CreateTab("Dupe", 4483362458)
+ local DupeTab = Window:CreateTab("Dupe", 4483362458)
 
- local Section = Dupe:CreateSection("Auto Dupe", false)
+ local Section = DupeTab:CreateSection("Auto Dupe", false)
 
- local Toggle = Dupe:CreateToggle({
+ local Toggle = DupeTab:CreateToggle({
     Name = "Dupe Weights",
     CurrentValue = false,
     Flag = "Toggle2",
     Callback = function(Value)
-        _G.Duper = Value
-        
+        _G.Farmer = Value
+
         local MarketplaceService = game:GetService("MarketplaceService")
         local LocalPlayer = game.Players.LocalPlayer
     
@@ -142,7 +142,7 @@ local Button = Tab:CreateButton({
             MarketplaceService:SignalPromptGamePassPurchaseFinished(LocalPlayer, gamePassId, true)
         end
 
-        while _G.Duper do
+        while _G.Farmer do
         simulatePurchase(5949054)
         Wait(0.6)
         end
