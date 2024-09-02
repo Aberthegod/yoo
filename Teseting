@@ -301,7 +301,7 @@ local Section = Pro:CreateSection("Reduce Lag", false)
 if TTS then
     spawn(function()
         while true do
-            task.Wait(0.1)
+            Wait(0.1)
             local plr = game:GetService("Players").LocalPlayer
             local playerName = plr.Name
             TTS:Set("Raw Strength: "..game.ReplicatedStorage.Data[playerName].Strength.Value)
