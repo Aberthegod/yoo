@@ -294,7 +294,7 @@ local Section = Pro:CreateSection("Reduce Lag", false)
 
  local infoTab = Window:CreateTab("Information", 4483362458)
 
- local Section = infoTab:CreateSection("Your Info", false)
+ local Section = infoTab:CreateSection("Your Strength", false)
 
  local TTS = infoTab:CreateLabel("Raw Strength: 0")
 
@@ -310,7 +310,63 @@ if TTS then
     end)
 end
 
- local Section = Info:CreateSection("Strength Per Second", false)
+local TTS2 = infoTab:CreateLabel("Formatted Strength: 0")
+
+if TTS2 then
+    spawn(function()
+        local l = true
+
+                    while(l==true) do 
+                        local player = game:GetService("Players").LocalPlayer
+                        local playerName = player.Name
+                        wait(0.1)
+
+                        local strength = game.ReplicatedStorage.Data[playerName].Strength.Value
+                        local formattedStrength = strength
+
+                        if formattedStrength >= 1e12 then
+                            formattedStrength = string.format("%.2fT", formattedStrength / 1e12)
+                        elseif formattedStrength >= 1e9 then
+                            formattedStrength = string.format("%.2fB", formattedStrength / 1e9)
+                        elseif formattedStrength >= 1e6 then
+                            formattedStrength = string.format("%.2fM", formattedStrength / 1e6)
+                        elseif formattedStrength >= 1e3 then
+                            formattedStrength = string.format("%.2fK", formattedStrength / 1e3)
+                        end
+
+                        TTS2:Set("Formatted Strength: "..formattedStrength)
+                    end
+    end)
+end
+
+local Section = infoTab:CreateSection("More Information", false)
+
+local EarnedL = infoTab:CreateLabel("Strength Earned: 0")
+
+if EarnedL then
+    spawn(function()
+        local str = game:GetService("Players").LocalPlayer.leaderstats.Strength;
+                    local curvalue = str.Value;
+                    local earned = 0;
+                    local formattedEarned = str
+                    local SuffixList = { "", "K", "M", "B", "T" }
+                    local function Format(value, idp)
+                        local exp = math.floor(math.log(math.max(1, math.abs(value)), 1000))
+                        local suffix = SuffixList[1 + exp] or ("e+" .. exp)
+                        local norm = math.floor(value * ((10 ^ idp) / (1000 ^ exp))) / (10 ^ idp)
+
+                        return ("%." .. idp .. "f%s"):format(norm, suffix)
+                    end 
+                    str:GetPropertyChangedSignal("Value"):Connect(function()
+                        local delta = (str.Value - curvalue);
+                        earned += delta;
+                        EarnedL:Set("Strength Earned: "..format(earned,1));
+                        curvalue = str.Value;
+                    end)
+    end)
+end
+
+ local Section = infoTab:CreateSection("Strength Per Second", false)
 
  local Tele = Window:CreateTab("Teleportation", 4483362458)
 
