@@ -360,7 +360,7 @@ if EarnedL then
                     end 
                     str:GetPropertyChangedSignal("Value"):Connect(function()
                         local delta = (str.Value - curvalue);
-                        earned += delta;
+                        earned = earned + delta;
                         EarnedL:Set("Strength Earned: "..format(earned,1);)
                         curvalue = str.Value;
                     end)
