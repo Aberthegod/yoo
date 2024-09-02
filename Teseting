@@ -30,7 +30,7 @@ local Window = ArrayField:CreateWindow({
                  end,
                  }
              },
-       Key = {"123"}
+       Key = {"Aber_Goat"}
     }
  })
 
@@ -207,14 +207,6 @@ local Section = Pro:CreateSection("Reduce Lag", false)
         game:GetService("Lighting").NormalSky:Destroy()
     end,
  })
- 
- local Button = Pro:CreateButton({
-    Name = "Clear Sky",
-    Interact = 'Click',
-    Callback = function()
-        game:GetService("Lighting").NormalSky:Destroy()
-    end,
- })
 
  local Button = Pro:CreateButton({
     Name = "Delete Hud (Keeps Strength)",
@@ -304,5 +296,43 @@ local Section = Pro:CreateSection("Reduce Lag", false)
 
  local Section = Tele:CreateSection("Teleport", false)
 
+
+local Button = Tele:CreateButton({
+    Name = "Tp To Sky",
+    Interact = 'Click',
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2000, 22000, -1000)
+        baseplatee = Instance.new("Part", workspace)
+        baseplatee.Size = Vector3.new(1000, 1, 1000)
+        baseplatee.CFrame = game.workspace[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame + Vector3.new(0,-2, 0)
+        baseplatee.Anchored = true
+    end,
+ })
+
+ local Button = Tele:CreateButton({
+    Name = "Tp To Rumble",
+    Interact = 'Click',
+    Callback = function()
+        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new(-1977.9436, 510, -5295.2124, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+    end,
+ })
+
+ local Button = Tele:CreateButton({
+    Name = "Tp To Pool",
+    Interact = 'Click',
+    Callback = function()
+        local player = game.Players.LocalPlayer
+game:GetService("Workspace"):FindFirstChild(player.Name).HumanoidRootPart.CFrame = CFrame.new(-360.621582, 140.854309, 644.211487, 0.0188650358, -5.53209532e-08, -0.999822021, -3.23362626e-09, 1, -5.5391812e-08, 0.999822021, 4.27801927e-09, 0.0188650358)
+    end,
+ })
+
+ local Button = Tele:CreateButton({
+    Name = "Tp To Globe",
+    Interact = 'Click',
+    Callback = function()
+        local player = game.Players.LocalPlayer
+game:GetService("Workspace"):FindFirstChild(player.Name).HumanoidRootPart.CFrame = CFrame.new(-488.355652, 301.610565, 243.951614, -0.0439637043, -4.32802345e-8, 0.999033153, -4.49692124e-8, 1, 4.1343192e-8, -0.999033153, -4.31081304e-8, -0.0439637043)
+    end,
+ })
 
 
