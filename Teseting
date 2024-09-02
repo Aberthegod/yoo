@@ -296,15 +296,15 @@ local Section = Pro:CreateSection("Reduce Lag", false)
 
  local Section = info:CreateSection("Your Info", false)
 
- local TTS = DupeTab:CreateLabel("Raw Strength: 0")
+ local TTS = Info:CreateLabel("Raw Strength: 0")
 
 if TTS then
     spawn(function()
         while true do
             task.Wait(0.1)
-            local plr = game.Players.LocalPlayer
-            local plrname = plr.Name
-            TTS:Set("Raw Strength: "..game:GetService("ReplicatedStorage").Data[plrname].Strength.Value)
+            local plr = game:GetService("Players").LocalPlayer
+            local playerName = plr.Name
+            TTS:Set("Raw Strength: "..game.ReplicatedStorage.Data[playerName].Strength.Value)
         end
     end)
 end
