@@ -48,7 +48,7 @@ local Window = ArrayField:CreateWindow({
     }
 })
 
-local Tab = Window:CreateTab("Farming", 2024893678)
+local Tab = Window:CreateTab("Farming", 4483362458)
 
 local Section = Tab:CreateSection("Farm Section",false)
 
@@ -58,7 +58,7 @@ local Button = Tab:CreateButton({
     Callback = function()
         getgenv().Lifter = true;
 	
-        while wait(0.611201) do
+        while task.wait(0.611201) do
             if getgenv().Lifter == true then
                 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                     if v.Name == "Double Weight" then v:Activate() end
@@ -85,7 +85,7 @@ local Button = Tab:CreateButton({
     Callback = function(Value)
         _G.Equip = Value
         while _G.Equip do
-            wait(.5)
+            task.wait(.5)
             for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                 if v.Name == "Double Weight" then
                     v.Parent = game.Players.LocalPlayer.Character
@@ -124,7 +124,31 @@ local Button = Tab:CreateButton({
     end,
  })
 
- local Pro = Window:CreateTab("Performance", 12702831873)
+ local Dupe = Window:CreateTab("Dupe", 4483362458)
+
+ local Section = Dupe:CreateSection("Auto Dupe", false)
+
+ local Toggle = Dupe:CreateToggle({
+    Name = "Dupe Weights",
+    CurrentValue = false,
+    Flag = "Dupe",
+    Callback = function(Value)
+        local MarketplaceService = game:GetService("MarketplaceService")
+        local LocalPlayer = game.Players.LocalPlayer
+    
+        local function simulatePurchase(gamePassId)
+            MarketplaceService:SignalPromptGamePassPurchaseFinished(LocalPlayer, gamePassId, true)
+        end
+
+        _G.Duper = Value
+        while _G.Duper do
+            task.Wait(0.6)
+        simulatePurchase(5949054)
+        end
+    end,
+ })
+
+ local Pro = Window:CreateTab("Performance", 4483362458)
 
  local Section = Pro:CreateSection("Reduce Lag",false)
 
