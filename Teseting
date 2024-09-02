@@ -345,7 +345,7 @@ local EarnedL = infoTab:CreateLabel("Strength Earned: 0")
 
 if EarnedL then
     spawn(function()
-        wait(0.1)
+        task.wait(0.1)
         local str = game:GetService("Players").LocalPlayer.leaderstats.Strength;
                     local curvalue = str.Value;
                     local earned = 0;
