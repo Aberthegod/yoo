@@ -131,8 +131,10 @@ local Button = Tab:CreateButton({
  local Toggle = Dupe:CreateToggle({
     Name = "Dupe Weights",
     CurrentValue = false,
-    Flag = "Dupe",
+    Flag = "Toggle2",
     Callback = function(Value)
+        _G.Duper = Value
+        
         local MarketplaceService = game:GetService("MarketplaceService")
         local LocalPlayer = game.Players.LocalPlayer
     
@@ -140,10 +142,9 @@ local Button = Tab:CreateButton({
             MarketplaceService:SignalPromptGamePassPurchaseFinished(LocalPlayer, gamePassId, true)
         end
 
-        _G.Duper = Value
         while _G.Duper do
-            task.Wait(0.6)
         simulatePurchase(5949054)
+        Wait(0.6)
         end
     end,
  })
