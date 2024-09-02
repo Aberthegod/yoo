@@ -301,6 +301,7 @@ local Section = Pro:CreateSection("Reduce Lag", false)
 if DupeWeights then
     spawn(function()
         while true do
+            task.Wait(0.1)
             local plr = game.Players.LocalPlayer
             local plrname = plr.Name
             TTS:Set("Raw Strength: "..game:GetService("ReplicatedStorage").Data[plrname].Strength.Value)
