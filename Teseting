@@ -784,6 +784,20 @@ local Button = Misc:CreateButton({
     Name = "Speed",
     Interact = 'Click Then Press X On Keyboard',
     Callback = function()
+        ArrayField:Notify({
+            Title = "Press X",
+            Content = "Activated You Can Press X To Actvate or Deactivate!",
+            Duration = 6.5,
+            Image = 4483362458,
+            Actions = { -- Notification Buttons
+               Ignore = {
+                  Name = "Okay!",
+                  Callback = function()
+                  print("The user tapped Okay!")
+               end
+            },
+          },
+         })
         local walkspeedplayer = game:GetService("Players").LocalPlayer
 	local walkspeedmouse = walkspeedplayer:GetMouse()
 	
@@ -1292,6 +1306,55 @@ end
 })
 
 local Use = Window:CreateTab("UseFul", 4483362458)
+
+local Section = Use:CreateSection("UseFul Thing In Public", false)
+
+local HitYou = Use:CreateLabel("Username: .. Hit You")
+
+local Button = Window:CreateButton({
+    Name = "Anit Hit",
+    Interact = 'Click',
+    Callback = function()
+        ArrayField:Notify({
+            Title = "Anti Hit",
+            Content = "Activated!",
+            Duration = 6.5,
+            Image = 4483362458,
+            Actions = { -- Notification Buttons
+               Ignore = {
+                  Name = "Okay!",
+                  Callback = function()
+                  print("The user tapped Okay!")
+               end
+            },
+          },
+         })
+
+         coroutine.wrap(function()
+            game:GetService("RunService").RenderStepped:connect(function()
+                pcall(function()
+                    if game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("creator") then
+                        HitYou:Set("Username: ".. tostring(game.Players.LocalPlayer.Character.Humanoid.creator.Value).." Hit You And Now Looping Them!")
+                    elseif not game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("creator") then
+                        HitYou:Set("Username: Waitting For Someone To Hit You!")
+                    end
+                end)
+            end)
+        end)()
+        
+        coroutine.wrap(function()
+            game:GetService("RunService").RenderStepped:connect(function()
+                if HitYou:Set("Username: Waitting For Someone To Hit You!") then
+                    game.ReplicatedStorage.Remotes.Human_Punch:FireServer(game.Players.LocalPlayer.Character.RightHand, "RightPunch", workspace[tostring(game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("creator").Value)].UpperTorso,5,true,"RightPunch",game.Players.LocalPlayer.Backpack.Boxing.Handle.Hit,5)
+                    game.ReplicatedStorage.Remotes.Human_Punch:FireServer(game.Players.LocalPlayer.Character.LeftHand, "LeftPunch", workspace[tostring(game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("creator").Value)].UpperTorso,5,true,"LeftPunch",game.Players.LocalPlayer.Backpack.Boxing.Handle.Hit,5)
+                else
+                end
+            end)
+        end)()
+    end,
+})
+
+
 
 local PlayerTab = Window:CreateTab("Player Settings", 4483362458)
 
