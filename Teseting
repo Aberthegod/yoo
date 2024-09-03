@@ -792,7 +792,7 @@ local Button = Misc:CreateButton({
 	function x_walkspeed(key)
 		if (key == "x") then
 			if walkspeedenabled == false then
-				_G.WS = WalkSpeed.Text;
+				_G.WS = 250;
 				local Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid;
 				Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
 					Humanoid.WalkSpeed = _G.WS;
@@ -801,7 +801,7 @@ local Button = Misc:CreateButton({
 	
 				walkspeedenabled = true
 			elseif walkspeedenabled == true then
-				_G.WS = WalkSpeed.Text;
+				_G.WS = 30;
 				local Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid;
 				Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
 					Humanoid.WalkSpeed = _G.WS;
@@ -1060,7 +1060,7 @@ local Input = {} do
 		end
 
 		function Input.StartCapture()
-			ContextActionService:BindActionAtPriority("FreecamKeyboard", Keypress, true, INPUT_PRIORITY,
+			ContextActionService:BindActionAtPriority("FreecamKeyboard", Keypress, false, INPUT_PRIORITY,
 				Enum.KeyCode.W, Enum.KeyCode.U,
 				Enum.KeyCode.A, Enum.KeyCode.H,
 				Enum.KeyCode.S, Enum.KeyCode.J,
