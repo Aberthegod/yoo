@@ -397,7 +397,15 @@ end
 
  if Sps then
     spawn(function()
-        local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(1)y=w.Value;z=y-x;Sps:Set("Strength Per Sec: "..z) end
+        local SuffixList = { "", "K", "M", "B", "T" }
+                    local function Format(value, idp)
+                        local exp = math.floor(math.log(math.max(1, math.abs(value)), 1000))
+                        local suffix = SuffixList[1 + exp] or ("e+" .. exp)
+                        local norm = math.floor(value * ((10 ^ idp) / (1000 ^ exp))) / (10 ^ idp)
+
+                        return ("%." .. idp .. "f%s"):format(norm, suffix)
+                    end 
+        local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(1)y=w.Value;z=y-x;Sps:Set("Strength Per Sec: "..Format(z,1)) end
     end)
  end
 
@@ -405,7 +413,15 @@ end
 
  if Sps2 then
     spawn(function()
-        local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(60)y=w.Value;z=y-x;Sps2:Set("Strength Per Min: "..z) end
+        local SuffixList = { "", "K", "M", "B", "T" }
+                    local function Format(value, idp)
+                        local exp = math.floor(math.log(math.max(1, math.abs(value)), 1000))
+                        local suffix = SuffixList[1 + exp] or ("e+" .. exp)
+                        local norm = math.floor(value * ((10 ^ idp) / (1000 ^ exp))) / (10 ^ idp)
+
+                        return ("%." .. idp .. "f%s"):format(norm, suffix)
+                    end 
+        local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(60)y=w.Value;z=y-x;Sps2:Set("Strength Per Min: "..Format(z,1)) end
     end)
  end
 
@@ -413,7 +429,15 @@ end
 
  if Sps3 then
     spawn(function()
-        local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(3600)y=w.Value;z=y-x;Sps3:Set("Strength Per Hour: "..z) end
+        local SuffixList = { "", "K", "M", "B", "T" }
+                    local function Format(value, idp)
+                        local exp = math.floor(math.log(math.max(1, math.abs(value)), 1000))
+                        local suffix = SuffixList[1 + exp] or ("e+" .. exp)
+                        local norm = math.floor(value * ((10 ^ idp) / (1000 ^ exp))) / (10 ^ idp)
+
+                        return ("%." .. idp .. "f%s"):format(norm, suffix)
+                    end 
+        local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(3600)y=w.Value;z=y-x;Sps3:Set("Strength Per Hour: "..Format(z,1)) end
     end)
  end
 
@@ -421,7 +445,15 @@ end
 
  if Sps4 then
     spawn(function()
-        local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(86400)y=w.Value;z=y-x;Sps4:Set("Strength Per Day: "..z) end
+        local SuffixList = { "", "K", "M", "B", "T" }
+                    local function Format(value, idp)
+                        local exp = math.floor(math.log(math.max(1, math.abs(value)), 1000))
+                        local suffix = SuffixList[1 + exp] or ("e+" .. exp)
+                        local norm = math.floor(value * ((10 ^ idp) / (1000 ^ exp))) / (10 ^ idp)
+
+                        return ("%." .. idp .. "f%s"):format(norm, suffix)
+                    end 
+        local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(86400)y=w.Value;z=y-x;Sps4:Set("Strength Per Day: "..Format(z,1)) end
     end)
  end
 
