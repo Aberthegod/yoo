@@ -1309,9 +1309,9 @@ local Use = Window:CreateTab("UseFul", 4483362458)
 
 local Section = Use:CreateSection("UseFul Thing In Public", false)
 
-local HitYou = Use:CreateLabel("Username: .. Hit You")
+local HitYou = Use:CreateLabel("Username: Waitting For Someone To Hit You!")
 
-local Button = Window:CreateButton({
+local Button = Use:CreateButton({
     Name = "Anit Hit",
     Interact = 'Click',
     Callback = function()
