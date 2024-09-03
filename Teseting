@@ -1420,6 +1420,7 @@ local Slider = PlayerTab:CreateSlider({
     CurrentValue = 1,
     Flag = "Slider4",
     Callback = function(Value)
+    game.Players.LocalPlayer.Character.Humanoid.BodyDepthScale = Value
 	game.Players.LocalPlayer.Character.Humanoid.BodyHeightScale = Value
 	game.Players.LocalPlayer.Character.Humanoid.BodyWidthScale = Value
 	game.Players.LocalPlayer.Character.Humanoid.HeadScale = Value
