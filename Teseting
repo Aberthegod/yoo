@@ -1420,23 +1420,9 @@ local Slider = PlayerTab:CreateSlider({
     CurrentValue = 1,
     Flag = "Slider4",
     Callback = function(Value)
-        local character = game.Players.LocalPlayer.Character
-        if character and character:FindFirstChild("Humanoid") then
-            local humanoid = character.Humanoid
-            humanoid.BodyDepthScale.Value = Value
-            humanoid.BodyHeightScale.Value = Value
-            humanoid.BodyWidthScale.Value = Value
-            humanoid.HeadScale.Value = Value
-        end
+        game.Players.LocalPlayer.Character.Humanoid.BodyDepthScale == Value
+	game.Players.LocalPlayer.Character.Humanoid.BodyHeightScale == Value
+	game.Players.LocalPlayer.Character.Humanoid.BodyWidthScale == Value
+	game.Players.LocalPlayer.Character.Humanoid.HeadScale == Value
     end,
-})
-
-game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
-    if Slider and Slider.Value then
-        local humanoid = character:WaitForChild("Humanoid")
-        humanoid.BodyDepthScale.Value = Slider.Value
-        humanoid.BodyHeightScale.Value = Slider.Value
-        humanoid.BodyWidthScale.Value = Slider.Value
-        humanoid.HeadScale.Value = Slider.Value
-    end
-end)
+ })
