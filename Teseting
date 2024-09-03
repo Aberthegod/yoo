@@ -1412,14 +1412,10 @@ local Slider = PlayerTab:CreateSlider({
     end,
  })
 
- local Slider = PlayerTab:CreateSlider({
-    Name = "Player Size",
-    Range = {0.5, 2},
-    Increment = 0.1,
-    Suffix = "Size",
-    CurrentValue = 1,
-    Flag = "Slider4",
-    Callback = function(Value)
+ local Button = PlayerTab:CreateButton({
+    Name = "Become Small",
+    Interact = 'Click',
+    Callback = function()
         local player = game.Players.LocalPlayer
         local character = player.Character
         if character and character:FindFirstChild("Humanoid") then
