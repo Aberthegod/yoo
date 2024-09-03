@@ -144,7 +144,7 @@ local Button = Tab:CreateButton({
 
         while _G.Farmer do
         simulatePurchase(5949054)
-        Wait(0.6)
+        Wait(1)
         end
     end,
  })
@@ -1305,13 +1305,13 @@ end
     end,
 })
 
-local Use = Window:CreateTab("UseFul", 4483362458)
+local UseTab = Window:CreateTab("UseFul", 4483362458)
 
-local Section = Use:CreateSection("UseFul Thing In Public", false)
+local Section = UseTab:CreateSection("UseFul Thing In Public", false)
 
-local HitYou = Use:CreateLabel("Username: Waitting For Someone To Hit You!")
+local HitYou = UseTab:CreateLabel("Username: Waitting For Someone To Hit You!")
 
-local Button = Use:CreateButton({
+local Button = UseTab:CreateButton({
     Name = "Anit Hit",
     Interact = 'Click',
     Callback = function()
@@ -1344,11 +1344,8 @@ local Button = Use:CreateButton({
         
         coroutine.wrap(function()
             game:GetService("RunService").RenderStepped:connect(function()
-                if HitYou:Set("Username: Waitting For Someone To Hit You!") then
                     game.ReplicatedStorage.Remotes.Human_Punch:FireServer(game.Players.LocalPlayer.Character.RightHand, "RightPunch", workspace[tostring(game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("creator").Value)].UpperTorso,5,true,"RightPunch",game.Players.LocalPlayer.Backpack.Boxing.Handle.Hit,5)
                     game.ReplicatedStorage.Remotes.Human_Punch:FireServer(game.Players.LocalPlayer.Character.LeftHand, "LeftPunch", workspace[tostring(game.Players.LocalPlayer.Character.Humanoid:FindFirstChild("creator").Value)].UpperTorso,5,true,"LeftPunch",game.Players.LocalPlayer.Backpack.Boxing.Handle.Hit,5)
-                else
-                end
             end)
         end)()
     end,
