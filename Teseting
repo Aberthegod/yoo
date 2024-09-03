@@ -1,5 +1,24 @@
 local ArrayField = loadstring(game:HttpGet('https://raw.githubusercontent.com/UI-Interface/ArrayField/main/Source.lua'))()
 
+local player = game.Players.LocalPlayer
+
+local function destroyLocal()
+    local character = player.Character or player.CharacterAdded:Wait()
+    local localObject = character:FindFirstChild("Local")
+    if localObject then
+        localObject:Destroy()
+    end
+end
+
+player.CharacterAdded:Connect(function()
+    wait(1) 
+    destroyLocal()
+end)
+
+if player.Character then
+    destroyLocal()
+end
+
 local Window = ArrayField:CreateWindow({
     Name = "Glizzy Hub",
     LoadingTitle = "Glizzy Hub (Private)",
@@ -1355,3 +1374,55 @@ local Button = UseTab:CreateButton({
 
 local PlayerTab = Window:CreateTab("Player Settings", 4483362458)
 
+local Section = PlayerTab:CreateSection("Player", false)
+
+local Slider = PlayerTab:CreateSlider({
+    Name = "Player Walkspeed",
+    Range = {30, 500},
+    Increment = 5,
+    Suffix = "Walkspeed",
+    CurrentValue = 30,
+    Flag = "Slider1",
+    Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+    end,
+ })
+
+ local Slider = PlayerTab:CreateSlider({
+    Name = "Player JumpPower",
+    Range = {50, 500},
+    Increment = 5,
+    Suffix = "JumpPower",
+    CurrentValue = 50,
+    Flag = "Slider2",
+    Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+    end,
+ })
+
+ local Slider = PlayerTab:CreateSlider({
+    Name = "Clock Time",
+    Range = {1, 24},
+    Increment = 1,
+    Suffix = "Time",
+    CurrentValue = 14,
+    Flag = "Slider3",
+    Callback = function(Value)
+        game:GetService("Lighting").ClockTime = Value
+    end,
+ })
+
+ local Slider = PlayerTab:CreateSlider({
+    Name = "Player Size",
+    Range = {0.5, 2},
+    Increment = 0.1,
+    Suffix = "Size",
+    CurrentValue = 1,
+    Flag = "Slider4",
+    Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.BodyDepthScale = Value
+	game.Players.LocalPlayer.Character.Humanoid.BodyHeightScale = Value
+	game.Players.LocalPlayer.Character.Humanoid.BodyWidthScale = Value
+	game.Players.LocalPlayer.Character.Humanoid.HeadScale = Value
+    end,
+ })
