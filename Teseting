@@ -49,7 +49,7 @@ local Window = ArrayField:CreateWindow({
                  end,
                  }
              },
-       Key = {"123"}
+       Key = {"Antman5"}
     }
  })
 
@@ -167,6 +167,72 @@ local Button = Tab:CreateButton({
         end
     end,
  })
+
+ local Button = DupeTab:CreateButton({
+    Name = "Auto Dupe V2",
+    Interact = 'Click',
+    Callback = function()
+        _G.AfkDuper = true
+
+        local num = 50
+        local MarketplaceService = game:GetService("MarketplaceService")
+        local LocalPlayer = game.Players.LocalPlayer
+        
+        local function simulatePurchase(gamePassId)
+            MarketplaceService:SignalPromptGamePassPurchaseFinished(LocalPlayer, gamePassId, true)
+        end
+        
+        while _G.AfkDuper do
+            repeat
+                simulatePurchase(5949054)
+                task.wait(1)
+                num -= 1
+            until num == 0
+        
+            if num == 0 then
+                _G.AfkDuper = false
+                _G.Equip = true
+        
+                while _G.Equip do
+                    task.wait(0.5)
+                    for i, v in pairs(LocalPlayer.Backpack:GetChildren()) do
+                        if v.Name == "Double Weight" then
+                            v.Parent = LocalPlayer.Character
+                        end
+                    end
+                end
+        
+                task.wait(2)
+                getgenv().Lifter = true
+        
+                while getgenv().Lifter do
+                    task.wait(0.611201)
+                    for i, v in pairs(LocalPlayer.Character:GetChildren()) do
+                        if v.Name == "Double Weight" then
+                            v:Activate()
+                        end
+                    end
+                end
+            end
+        end
+        
+
+        ArrayField:Notify({
+            Title = "Afk Dupe",
+            Content = "Activated Do nothing!",
+            Duration = 6.5,
+            Image = 4483362458,
+            Actions = { -- Notification Buttons
+               Ignore = {
+                  Name = "Okay!",
+                  Callback = function()
+                  print("The user tapped Okay!")
+               end
+            },
+          },
+         })
+    end,
+})
 
  local DupeWeights = DupeTab:CreateLabel("Weights: 0")
 
@@ -1411,19 +1477,3 @@ local Slider = PlayerTab:CreateSlider({
         game:GetService("Lighting").ClockTime = Value
     end,
  })
-
- local Button = PlayerTab:CreateButton({
-    Name = "Become Small",
-    Interact = 'Click',
-    Callback = function()
-        local player = game.Players.LocalPlayer
-        local character = player.Character
-        if character and character:FindFirstChild("Humanoid") then
-            local humanoid = character.Humanoid
-            humanoid.BodyDepthScale:Destroy()
-            humanoid.BodyHeightScale:Destroy()
-            humanoid.BodyWidthScale:Destroy()
-            humanoid.HeadScale:Destroy()
-        end
-    end,
-})
