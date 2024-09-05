@@ -203,18 +203,18 @@ local Button = Tab:CreateButton({
                 end
         
                 task.wait(2)
-                getgenv().Lifter = true
         
-                while getgenv().Lifter do
-                    task.wait(0.611201)
-                    for i, v in pairs(LocalPlayer.Character:GetChildren()) do
-                        if v.Name == "Double Weight" then
-                            v:Activate()
-                        end
-                    end
-                end
+                getgenv().Lifter = true;
+	
+        while task.wait(0.611201) do
+            if getgenv().Lifter == true then
+                for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v.Name == "Double Weight" then v:Activate() end
+                end	
             end
         end
+     end
+ end
         
 
         ArrayField:Notify({
