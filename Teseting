@@ -174,45 +174,53 @@ local Button = Tab:CreateButton({
     Callback = function()
         _G.AfkDuper = true
 
-        local num = 50
-        local MarketplaceService = game:GetService("MarketplaceService")
-        local LocalPlayer = game.Players.LocalPlayer
-        
-        local function simulatePurchase(gamePassId)
-            MarketplaceService:SignalPromptGamePassPurchaseFinished(LocalPlayer, gamePassId, true)
+local num = 50
+local MarketplaceService = game:GetService("MarketplaceService")
+local LocalPlayer = game.Players.LocalPlayer
+
+local function simulatePurchase(gamePassId)
+    MarketplaceService:SignalPromptGamePassPurchaseFinished(LocalPlayer, gamePassId, true)
+end
+
+while _G.AfkDuper do
+    repeat
+        simulatePurchase(5949054)
+        task.wait(1)
+        num -= 1
+    until num == 0
+
+    if num == 0 then
+        _G.AfkDuper = false
+        _G.Equip = true
+        getgenv().Lifter = true
+
+        while _G.Equip do
+            task.wait(0.5)
+            local equipped = false
+            for i, v in pairs(LocalPlayer.Backpack:GetChildren()) do
+                if v.Name == "Double Weight" then
+                    v.Parent = LocalPlayer.Character
+                    equipped = true
+                end
+            end
+
+            -- Stop the Equip loop if no more "Double Weight" items are found
+            if not equipped then
+                _G.Equip = false
+            end
         end
         
-        while _G.AfkDuper do
-            repeat
-                simulatePurchase(5949054)
-                task.wait(1)
-                num -= 1
-            until num == 0
-        
-            if num == 0 then
-                _G.AfkDuper = false
-                _G.Equip = true
-                getgenv().Lifter = true;
-        
-                while _G.Equip do
-                    task.wait(0.5)
-                    for i, v in pairs(LocalPlayer.Backpack:GetChildren()) do
-                        if v.Name == "Double Weight" then
-                            v.Parent = LocalPlayer.Character
-                        end
-                    end
+        while getgenv().Lifter do
+            task.wait(0.611201)
+            for i, v in pairs(LocalPlayer.Character:GetChildren()) do
+                if v.Name == "Double Weight" then
+                    v:Activate()
                 end
-                
-	
-                while task.wait(0.611201) do
-                    if getgenv().Lifter == true then
-                        for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-                            if v.Name == "Double Weight" then v:Activate() end
-                        end	
-                    end
-                end
-     end
- end
+            end
+        end
+    end
+end
+
         
 
         ArrayField:Notify({
