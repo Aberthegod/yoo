@@ -148,7 +148,7 @@ local Button = Tab:CreateButton({
  local Section = DupeTab:CreateSection("Auto Dupe", false)
 
  local Toggle = DupeTab:CreateToggle({
-    Name = "Dupe Weights",
+    Name = "Auto Dupe V1",
     CurrentValue = false,
     Flag = "Toggle2",
     Callback = function(Value)
@@ -192,6 +192,7 @@ local Button = Tab:CreateButton({
             if num == 0 then
                 _G.AfkDuper = false
                 _G.Equip = true
+                getgenv().Lifter = true;
         
                 while _G.Equip do
                     task.wait(0.5)
@@ -201,16 +202,15 @@ local Button = Tab:CreateButton({
                         end
                     end
                 end
-        
-                getgenv().Lifter = true;
+                
 	
-        while task.wait(0.611201) do
-            if getgenv().Lifter == true then
-                for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-                    if v.Name == "Double Weight" then v:Activate() end
-                end	
-            end
-        end
+                while task.wait(0.611201) do
+                    if getgenv().Lifter == true then
+                        for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                            if v.Name == "Double Weight" then v:Activate() end
+                        end	
+                    end
+                end
      end
  end
         
