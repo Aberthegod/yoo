@@ -202,8 +202,6 @@ local Button = Tab:CreateButton({
                     end
                 end
         
-                task.wait(2)
-        
                 getgenv().Lifter = true;
 	
         while task.wait(0.611201) do
