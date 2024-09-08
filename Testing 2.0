@@ -4459,9 +4459,7 @@ local Tab = Window:NewTab("Info Tab")
 
 local Section = Tab:NewSection("Your Information")
 
-local RawStrength = Section:NewLabel("Raw Strength: 0")
-
-if RawStrength then
+Section:NewLabel("Raw Strength: 0")
     spawn(function()
         while true do
             Wait(0.001)
@@ -4471,7 +4469,6 @@ if RawStrength then
             label:UpdateLabel("Raw Strength: "..RawS)
         end
     end)
-end
 
 Section:NewButton("Click Here!", "Click Button", function()
 -- Gui to Lua
