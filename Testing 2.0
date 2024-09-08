@@ -1,4 +1,4 @@
-local plr = game:GetService("Players").LocalPlayer;
+local player = game:GetService("Players").LocalPlayer;
 local marketplaceService = game:GetService("MarketplaceService");
 local GameName = "None";
 local isSuccessful, info = pcall(marketplaceService.GetProductInfo, marketplaceService, game.PlaceId);
