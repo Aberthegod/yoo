@@ -4507,7 +4507,7 @@ Section:NewButton("Kill", "kill players", function()
 end)
 local Tab = Window:NewTab("Options Tab")
 
-local Section = Tab:NewSection("Animation")
+local Section = Tab:NewSection("More Things For less lag")
 Section:NewToggle("NoAnimationLift", "Removes Your Animations When You Farm!", function(state)
     if state then
         for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
