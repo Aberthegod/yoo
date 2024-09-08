@@ -4668,65 +4668,79 @@ Section:NewButton("Spectate Players", "Watch People", function()
 end)
 
 Section:NewButton("Strongest Player", "Show Player Strength", function()
-	function plrchat(plr, b4)
-		print(plr.Name .. ": " .. tick() .. "\n" .. b4)
-	end
-	for i, aR in pairs(game:GetService("Players"):GetPlayers()) do
-		aR.Chatted:connect(
-			function(b4)
-				if chatlogs then
-					plrchat(aR, b4)
-				end
-			end
-		)
-	end
-	game:GetService("Players").PlayerAdded:connect(
-    function(plr)
-        plr.Chatted:connect(
-            function(b4)
-                if chatlogs then
-                    plrchat(plr, b4)
-                end
-            end
-        )
-    end
-)
-	strength = {}
-for i, aR in pairs(game.ReplicatedStorage.Data:GetChildren()) do
-    table.insert(strength, aR.Strength.Value)
-    table.sort(strength)
+	-- Function to log player chats
+local function plrchat(plr, msg)
+    print(plr.Name .. ": " .. tick() .. "\n" .. msg)
 end
-higheststrength = strength[table.getn(strength)]
-spawn(
-    function()
-        for i, aR in pairs(game.ReplicatedStorage.Data:GetDescendants()) do
-            if string.find(aR.Name, "Strength") and aR.Value == higheststrength then
-                plr = game.Players.LocalPlayer.Name
-                number = higheststrength
-                local bm = {K = 4, M = 7, B = 10}
-                local bn = tostring(math.floor(number))
-                local bo
-                for bp, bq in pairs(bm) do
-                    if #bn >= bq and #bn < bq + 3 then
-                        bo = bp
+
+-- Connect existing players' chat
+for _, player in pairs(game:GetService("Players"):GetPlayers()) do
+    player.Chatted:Connect(function(msg)
+        if chatlogs then
+            plrchat(player, msg)
+        end
+    end)
+end
+
+-- Connect newly added players' chat
+game:GetService("Players").PlayerAdded:Connect(function(player)
+    player.Chatted:Connect(function(msg)
+        if chatlogs then
+            plrchat(player, msg)
+        end
+    end)
+end)
+
+-- Strength Notification Section
+local strength = {}
+
+-- Collect and sort all strength values
+for _, data in pairs(game.ReplicatedStorage.Data:GetChildren()) do
+    table.insert(strength, data.Strength.Value)
+end
+
+if #strength > 0 then
+    table.sort(strength)
+    local higheststrength = strength[#strength]
+
+    -- Function to find and notify the strongest player
+    spawn(function()
+        for _, data in pairs(game.ReplicatedStorage.Data:GetDescendants()) do
+            if data:IsA("IntValue") and string.find(data.Name, "Strength") and data.Value == higheststrength then
+                local playerName = data.Parent.Name
+                local number = higheststrength
+
+                -- Format the strength value
+                local suffixes = {K = 4, M = 7, B = 10}
+                local numStr = tostring(math.floor(number))
+                local suffix = nil
+
+                for suffixKey, digitCount in pairs(suffixes) do
+                    if #numStr >= digitCount and #numStr < digitCount + 3 then
+                        suffix = suffixKey
                         break
                     end
                 end
-                if bo then
-                    local bq = bm[bo]
-                    local br = math.floor(number / 10 ^ (bq - 2)) * 10 ^ (bq - 2)
-                    bn = string.format("%.1f", br / 10 ^ (bq - 1)) .. bo
+
+                if suffix then
+                    local digitCount = suffixes[suffix]
+                    local roundedNumber = math.floor(number / 10 ^ (digitCount - 2)) * 10 ^ (digitCount - 2)
+                    numStr = string.format("%.1f", roundedNumber / 10 ^ (digitCount - 1)) .. suffix
                 else
-                    bn = number
+                    numStr = tostring(number)
                 end
-                game:GetService("StarterGui"):SetCore(
-                    "SendNotification",
-                    {Title = "\nStrongest Player\n " .. aR.Parent.Name .. "\n" .. bn, Text = ""}
-                )
+
+                -- Send the notification
+                game:GetService("StarterGui"):SetCore("SendNotification", {
+                    Title = "Strongest Player",
+                    Text = playerName .. "\nStrength: " .. numStr,
+                    Duration = 3
+                })
             end
         end
-    end
-)
+    end)
+end
+
 end)
 
 
