@@ -18,26 +18,19 @@ if game.PlaceId == 2888719930 then
     wait(3)
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("Zaza Hub | Paid Version", "Synapse")
+local Window = Library.CreateLib("Zaza Hub | Paid Version", "Serpent")
 local Tab = Window:NewTab("Farm Tab")
 local Section = Tab:NewSection("Farm Modified")
 Section:NewButton("Start Farming", "get strong", function()
-    getgenv().Lifter = true
-
-while task.wait(0.631201) do
-    if getgenv().Lifter then
-        local character = game.Players.LocalPlayer.Character
-        if character then
-            for _, v in pairs(character:GetChildren()) do
-                if v.Name == "Double Weight" and v:IsA("Tool") then
-                    v:Activate()
+    getgenv().Lifter = true;
+	
+                while wait(0.631201) do
+                    if getgenv().Lifter == true then
+                        for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                            if v.Name == "Double Weight" then v:Activate() end
+                        end	
+                    end
                 end
-            end
-        end
-    else
-        break
-    end
-end
 end)
 local Section = Tab:NewSection("Stop farm")
 Section:NewButton("Stop Farming", "get strong", function()
@@ -49,7 +42,7 @@ Section:NewToggle("Equip Weight", "Equip the weights", function(state)
     if state then
         _G.Equip = true
 	while _G.Equip do
-		wait()
+		wait(0.5)
 		for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 			if v.Name == "Double Weight" then
 				v.Parent = game.Players.LocalPlayer.Character
@@ -60,60 +53,100 @@ Section:NewToggle("Equip Weight", "Equip the weights", function(state)
         _G.Equip = false
     end
 end)
-local Section = Tab:NewSection("Gain more fps and lose lag")
-Section:NewButton("FPS", "gain fps", function()
-    loadstring(game:HttpGet("https://pastebin.com/raw/mmEr60d5", true))()
-	game.ReplicatedFirst.TourneyQ:Destroy()
-	game:GetService("Lighting").NormalSky:Destroy()
-	game:GetService("Players").LocalPlayer.PlayerGui.HUD:Destroy()
-end)
+local Section = Tab:NewSection("Reduce Lag")
+            Section:NewButton("FPS", "gain fps", function()
+                loadstring(game:HttpGet("https://pastebin.com/raw/mmEr60d5", true))()
+            end)
 
-Section:NewButton("Delete Textures", "Gets Rid of Lag", function()
-     local a = game
-local b = a.Workspace
-local c = a.Lighting
-local d = b.Terrain
-d.WaterWaveSize = 0
-d.WaterWaveSpeed = 0
-d.WaterReflectance = 0
-d.WaterTransparency = 0
-c.GlobalShadows = false
-c.FogEnd = 9e9
-settings().Rendering.QualityLevel = "Level01"
-for e, f in pairs(a:GetDescendants()) do
-  if f:IsA("Part") or f:IsA("Union") or f:IsA("CornerWedgePart") or f:IsA("TrussPart") then
-      f.Reflectance = 0
-  elseif f:IsA("Decal") or f:IsA("Texture") then
-      f.Transparency = 0
-  elseif f:IsA("ParticleEmitter") or f:IsA("Trail") then
-      f.Lifetime = NumberRange.new(0)
-  elseif f:IsA("Explosion") then
-      f.BlastPressure = 0
-      f.BlastRadius = 0
-  elseif f:IsA("Fire") or f:IsA("SpotLight") or f:IsA("Smoke") or f:IsA("Sparkles") then
-      f.Enabled = false
-  elseif f:IsA("MeshPart") then
-      f.Reflectance = 0
-  end
-  if f:IsA("Fire") then
-      f:Destroy()
-      wait()
-  end
-  if f:IsA("ParticleEmitter") then
-      f:Destroy()
-      wait()
-  end
-end
-for e, g in pairs(c:GetChildren()) do
-  if
-      g:IsA("BlurEffect") or g:IsA("SunRaysEffect") or g:IsA("ColorCorrectionEffect") or g:IsA("BloomEffect") or
-          g:IsA("DepthOfFieldEffect")
-   then
-      g.Enabled = false
-  end
-end
-sethiddenproperty(game.Lighting, "Technology", "Compatibility")
-end)
+            Section:NewButton("Delete Rumble", "..", function()
+                game.ReplicatedFirst.TourneyQ:Destroy()
+            end)
+
+			Section:NewButton("Delete PlayerScripts", "Deletes all PlayerScripts", function()
+				local player = game:GetService("Players").LocalPlayer
+				local playerScripts = player:FindFirstChild("PlayerScripts")
+				
+				if playerScripts then
+					playerScripts:Destroy()
+				end
+			end)
+			
+
+            Section:NewButton("Clear Fog", "...", function()
+                game:GetService("Lighting").NormalSky:Destroy()
+            end)
+            
+            Section:NewButton("Delete Hud (Show Strength)", "...", function()
+                game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.ProteinBuy:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.OpenShop:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.OpenReb:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.ImageLabel:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.OpenPack:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.PopSound:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.BlackMarket:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.LiftRemind:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.MuscleGain:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.RebFrame:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.ShopFrame:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.OpenSkins:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.Bar:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.StrengthHolder.ImageLabel:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.StrengthHolder.TextLabel.TextLabel:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.CashHolder:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.CashButton:Destroy()
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Frame.RumbleHolder:Destroy()
+            end)
+
+            Section:NewButton("Delete Hud", "...", function()
+                game:GetService("Players").LocalPlayer.PlayerGui.HUD:Destroy()
+            end)
+
+            Section:NewButton("Delete Textures", "Gets Rid of Textures", function()
+                local a = game
+                local b = a.Workspace
+                local c = a.Lighting
+                local d = b.Terrain
+                d.WaterWaveSize = 0
+                d.WaterWaveSpeed = 0
+                d.WaterReflectance = 0
+                d.WaterTransparency = 0
+                c.GlobalShadows = false
+                c.FogEnd = 9e9
+                settings().Rendering.QualityLevel = "Level01"
+                for e, f in pairs(a:GetDescendants()) do
+                    if f:IsA("Part") or f:IsA("Union") or f:IsA("CornerWedgePart") or f:IsA("TrussPart") then
+                        f.Reflectance = 0
+                    elseif f:IsA("Decal") or f:IsA("Texture") then
+                        f.Transparency = 0
+                    elseif f:IsA("ParticleEmitter") or f:IsA("Trail") then
+                        f.Lifetime = NumberRange.new(0)
+                    elseif f:IsA("Explosion") then
+                        f.BlastPressure = 0
+                        f.BlastRadius = 0
+                    elseif f:IsA("Fire") or f:IsA("SpotLight") or f:IsA("Smoke") or f:IsA("Sparkles") then
+                        f.Enabled = false
+                    elseif f:IsA("MeshPart") then
+                        f.Reflectance = 0
+                    end
+                    if f:IsA("Fire") then
+                        f:Destroy()
+                        wait()
+                    end
+                    if f:IsA("ParticleEmitter") then
+                        f:Destroy()
+                        wait()
+                    end
+                end
+                for e, g in pairs(c:GetChildren()) do
+                    if
+                        g:IsA("BlurEffect") or g:IsA("SunRaysEffect") or g:IsA("ColorCorrectionEffect") or g:IsA("BloomEffect") or
+                        g:IsA("DepthOfFieldEffect")
+                    then
+                        g.Enabled = false
+                    end
+                end
+                sethiddenproperty(game.Lighting, "Technology", "Compatibility")
+            end)
 
 local Section = Tab:NewSection("Anti Afk so you dont get kicked for being idle")
 
