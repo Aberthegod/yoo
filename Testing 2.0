@@ -4524,12 +4524,19 @@ end
 end)
 
 Section:NewToggle("Camera", "Disable Camera", function(state)
-	if state then
-		game:GetService("Workspace").Camera.Visible = false
-	else
-		game:GetService("Workspace").Camera.Visible = true
-	end
+    local camera = game:GetService("Workspace").CurrentCamera
+    
+    if state then
+        camera.CFrame = CFrame.new(0, 10000, 0)
+    else
+        local player = game.Players.LocalPlayer
+        if player.Character and player.Character:FindFirstChild("Humanoid") then
+            camera.CameraSubject = player.Character.Humanoid
+            camera.CFrame = player.Character.Head.CFrame
+        end
+    end
 end)
+
 
 Section:NewToggle("Inventory", "hides weights", function(state)
     if state then
