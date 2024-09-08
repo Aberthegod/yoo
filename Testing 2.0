@@ -3575,81 +3575,37 @@ Section:NewButton("Touch Fling", "when you touch then they fly", function()
 end)
 
 Section:NewButton("Anti Fling", "You Wont Get Flinged", function()
-	-- // Constants \\ --
--- [ Services ] --
-local Services = setmetatable({}, {__index = function(Self, Index)
-	local NewService = game.GetService(game, Index)
-	if NewService then
-	Self[Index] = NewService
-	end
-	return NewService
-	end})
-	
-	-- [ LocalPlayer ] --
-	local LocalPlayer = Services.Players.LocalPlayer
-	
-	-- // Functions \\ --
-	local function PlayerAdded(Player)
-	   local Detected = false
-	   local Character;
-	   local PrimaryPart;
-	
-	   local function CharacterAdded(NewCharacter)
-		   Character = NewCharacter
-		   repeat
-			   wait()
-			   PrimaryPart = NewCharacter:FindFirstChild("HumanoidRootPart")
-		   until PrimaryPart
-		   Detected = false
-	   end
-	
-	   CharacterAdded(Player.Character or Player.CharacterAdded:Wait())
-	   Player.CharacterAdded:Connect(CharacterAdded)
-	   Services.RunService.Heartbeat:Connect(function()
-		   if (Character and Character:IsDescendantOf(workspace)) and (PrimaryPart and PrimaryPart:IsDescendantOf(Character)) then
-			   if PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 or PrimaryPart.AssemblyLinearVelocity.Magnitude > 100 then
-				   if Detected == false then
-					   print("someone did something i guess")
-				   end
-				   Detected = true
-				   for i,v in ipairs(Character:GetDescendants()) do
-					   if v:IsA("BasePart") then
-						   v.CanCollide = false
-						   v.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
-						   v.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
-						   v.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
-					   end
-				   end
-				   PrimaryPart.CanCollide = false
-				   PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
-				   PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
-				   PrimaryPart.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
-			   end
-		   end
-	   end)
-	end
-	
-	-- // Event Listeners \\ --
-	for i,v in ipairs(Services.Players:GetPlayers()) do
-	   if v ~= LocalPlayer then
-		   PlayerAdded(v)
-	   end
-	end
-	Services.Players.PlayerAdded:Connect(PlayerAdded)
-	
-	local LastPosition = nil
-	Services.RunService.Heartbeat:Connect(function()
-	   pcall(function()
-		   local PrimaryPart = LocalPlayer.Character.PrimaryPart
-		   if PrimaryPart.AssemblyLinearVelocity.Magnitude > 250 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 250 then
-			   PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
-			   PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
-			   PrimaryPart.CFrame = LastPosition
-		   elseif PrimaryPart.AssemblyLinearVelocity.Magnitude < 50 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 then
-			   LastPosition = PrimaryPart.CFrame
-		   end
-	   end)
-	end)
+	local HttpService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local StatsService = game:GetService("Stats")
+
+local function FetchServersData()
+    local url = ("https://www.roblox.com/games/2888719930?privateServerLinkCode=65127499582508196860616317334558"):format(game.PlaceId, 150)
+    local success, response = pcall(function()
+        return HttpService:JSONDecode(game:HttpGet(url))
+    end)
+    return success and response and response.data or nil
+end
+
+local servers = FetchServersData()
+if not servers then
+    return
+end
+
+local lowestPingServer = servers[1]
+for _, server in pairs(servers) do
+    if server.maxPlayers > server.playing and server.ping < lowestPingServer.ping then
+        lowestPingServer = server
+    end
+end
+
+wait(5)
+local pingThreshold = 100
+local pingValue = tonumber(StatsService.Network.ServerStatsItem["Data Ping"]:GetValueString() or "0")
+
+if pingValue >= pingThreshold and lowestPingServer.maxPlayers > lowestPingServer.playing then
+    TeleportService:TeleportToPlaceInstance(placeId, lowestPingServer.id)
+end
 end)
 
 Section:NewButton("Anti Hit", "wont get hit", function()
