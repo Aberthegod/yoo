@@ -54,13 +54,16 @@ spawn(function()
 end)
 
 spawn(function()
-	while true do
-	local timer = 0.0008
-	local finnal = timer * amount
-	WaitTimer:UpdateLabel("Wait Time: ".. finnal)
-	wait(0.1)
-	end
+    while true do
+        local timer = 0.0008
+        local finnal = timer * amount
+        
+        WaitTimer:UpdateLabel("Wait Time: " .. finnal)
+        
+        wait(0.1)
+    end
 end)
+
 
 local Section = Tab:NewSection("Farm Modified")
 Section:NewButton("Start Farming", "get strong", function()
