@@ -4668,6 +4668,18 @@ Section:NewButton("Spectate Players", "Watch People", function()
 end)
 
 Section:NewButton("Strongest Player", "Show Player Strength", function()
+	function plrchat(plr, b4)
+		print(plr.Name .. ": " .. tick() .. "\n" .. b4)
+	end
+	for i, aR in pairs(game:GetService("Players"):GetPlayers()) do
+		aR.Chatted:connect(
+			function(b4)
+				if chatlogs then
+					plrchat(aR, b4)
+				end
+			end
+		)
+	end
 	strength = {}
 for i, aR in pairs(game.ReplicatedStorage.Data:GetChildren()) do
     table.insert(strength, aR.Strength.Value)
