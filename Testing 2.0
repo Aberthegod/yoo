@@ -4508,6 +4508,7 @@ end)
 local Tab = Window:NewTab("Options Tab")
 
 local Section = Tab:NewSection("More Things For less lag")
+
 Section:NewToggle("NoAnimationLift", "Removes Your Animations When You Farm!", function(state)
     if state then
         for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
@@ -4527,38 +4528,6 @@ Section:NewToggle("Camera", "Disable Camera", function(state)
 		game:GetService("Workspace").Camera.Visible = false
 	else
 		game:GetService("Workspace").Camera.Visible = true
-	end
-end)
-
-Section:NewToggle("Players", "Hide Players", function(state)
-	if state then
-		local plrs = {}
-local Player = game.Players.LocalPlayer
-local hiding = false
-    function()
-        if not hiding then
-            hiding = true
-            local player = game.Players:GetChildren()
-            for i = 1, #player do
-                if player[i].Name ~= Player.Name then
-                    table.insert(plrs, workspace[player[i].Name])
-                end
-            end
-            for i = 1, #plrs do
-                plrs[i].Parent = nil
-        end
-    end
-	else
-    function()
-			if hiding then
-            hiding = false
-            for i = 1, #plrs do
-                plrs[i].Parent = workspace
-            end
-            plrs = {}
-        end
-        print(unpack(plrs))
-    end
 	end
 end)
 
