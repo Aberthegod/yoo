@@ -16,7 +16,17 @@ if game.PlaceId == 2888719930 then
     })
 
     wait(3)
-	local amount = 0
+
+	
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Zaza Hub | Paid Version", "Serpent")
+local Tab = Window:NewTab("Farm Tab")
+local Section = Tab:NewSection("Your Wait time!")
+
+local WaitTimer = Section:NewLabel("Wait Time: 0")
+
+local amount = 0
 
 local function countWeights()
     amount = 0
@@ -42,20 +52,12 @@ spawn(function()
         wait(1)
     end
 end)
-	
-
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("Zaza Hub | Paid Version", "Serpent")
-local Tab = Window:NewTab("Farm Tab")
-local Section = Tab:NewSection("Your Wait time!")
-
-local WaitTimer = Section:NewLabel("Wait Time: 0")
 
 spawn(function()
 	local timer = 0.0008
 	local finnal = timer * amount
-	wait(0.1)
 	WaitTimer:UpdateLabel("Wait Time: ".. finnal)
+	wait(0.1)
 end)
 
 local Section = Tab:NewSection("Farm Modified")
