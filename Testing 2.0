@@ -4653,30 +4653,21 @@ local Section = Tab:NewSection("More Things For less lag")
 Section:NewButton("Ping Limiter", "Limits Ping",function()
 	local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
-local MaxPing = 25000-- The maximum allowable ping in milliseconds
-local CheckInterval = 5 -- How often (in seconds) to check the ping
 
-local function checkPing(player)
-    while true do
-        if player.Parent == Players then
-            local ping = math.floor(player:GetNetworkPing() * 1000) -- Get ping in milliseconds
-            if ping > MaxPing then
-				game:GetService("StarterGui"):SetCore("SendNotification",{
-					Title = "Ping Went Over",
-					Text = "High Ping", 
-					Duration = 7
-				})
-            end
-        else
-            break
-        end
-        wait(CheckInterval)
-    end
+local FixedPing = 15000
+
+local function mockPing()
+    return FixedPing / 1000
 end
 
 Players.PlayerAdded:Connect(function(player)
+    player.GetNetworkPing = mockPing
     spawn(function()
-        checkPing(player)
+        while true do
+            wait(5)
+            local ping = player:GetNetworkPing() * 1000
+            print("Mocked Ping:", ping .. "ms")
+        end
     end)
 end)
 
@@ -4762,6 +4753,8 @@ local Tab = Window:NewTab("Credits Tab")
 local Section = Tab:NewSection("Devs⬇")
 local Section = Tab:NewSection("Abercke04")
 
+local player = game:GetService("Players").LocalPlayer
+
 local function destroyLocal()
     local character = player.Character or player.CharacterAdded:Wait()
     local localObject = character:FindFirstChild("Local")
@@ -4771,11 +4764,12 @@ local function destroyLocal()
 end
 
 player.CharacterAdded:Connect(function()
-    wait(1) 
+    wait(1)
     destroyLocal()
 end)
 
 if player.Character then
     destroyLocal()
 end
+
 end
