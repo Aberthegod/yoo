@@ -4701,11 +4701,12 @@ Section:NewButton("Strongest Player", "Show Player Strength", function()
 				else
 					numStr = tostring(number)
 				end
-	
-				game:GetService("StarterGui"):SetCore(
-					"SendNotification",
-					{Title = "\nStrongest Player\n" .. playerName .. "\n" .. numStr, Text = ""}
-				)
+
+				game:GetService("StarterGui"):SetCore("SendNotification",{
+					Title = "\nStrongest Player\n".. playerName .. "\n" .. numStr,
+					Text = "", 
+					Duration = 3
+				})
 			end
 		end
 	end)
