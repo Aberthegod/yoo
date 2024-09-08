@@ -18,13 +18,13 @@ if game.PlaceId == 2888719930 then
     wait(3)
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("Zaza Hub | Paid Version", "DarkTheme")
+local Window = Library.CreateLib("Zaza Hub | Paid Version", "GrapeTheme")
 local Tab = Window:NewTab("Farm Tab")
 local Section = Tab:NewSection("Farm Modified")
 Section:NewButton("Start Farming", "get strong", function()
     getgenv().Lifter = true
 
-while task.wait(0.5994131) do
+while task.wait(0.631201) do
     if getgenv().Lifter then
         local character = game.Players.LocalPlayer.Character
         if character then
@@ -4580,6 +4580,8 @@ end)
 
 local Section = Tab:NewSection("Strength Per Second")
 
+local SPS = Section:NewLabel("SPS: 0")
+
 spawn(function()
 	local SuffixList = { "", "K", "M", "B", "T" }
 				local function Format(value, idp)
@@ -4591,10 +4593,6 @@ spawn(function()
 				end 
 	local w=game:GetService("Players").LocalPlayer.leaderstats.Strength;local x=w.Value;local y=0;local z=0;while true do x=w.Value;wait(1)y=w.Value;z=y-x;SPS:UpdateLabel("SPS: "..Format(z,1)) end
 end)
-
-local SPS = Section:NewLabel("SPS: 0")
-
-
 
 local Tab = Window:NewTab("Player Tab")
 
@@ -4687,7 +4685,13 @@ local Tab = Window:NewTab("UpdateLogs")
 local Section = Tab:NewSection("8/10/24")
 local Section = Tab:NewSection("Fixed Auto Dupe")
 local Section = Tab:NewSection("New Farm Speed")
-local Section = Tab:NewSection("9/7/24")
+local Section = Tab:NewSection("9/8/24")
+local Section = Tab:NewSection("Added Dupe Tab Back")
+local Section = Tab:NewSection("Added More Stuff To Misc Tab")
+local Section = Tab:NewSection("Added More Stuff To Options Tab")
+local Section = Tab:NewSection("Changed Info Tab")
+local Section = Tab:NewSection("Changed Farm Speed Back To Old one")
+local Section = Tab:NewSection("Fixed Walkspeed Glitch")
 
 local Tab = Window:NewTab("Credits Tab")
 local Section = Tab:NewSection("Devs⬇")
