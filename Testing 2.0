@@ -18,7 +18,7 @@ if game.PlaceId == 2888719930 then
     wait(3)
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("Zaza Hub | Paid Version", "Sentinel")
+local Window = Library.CreateLib("Zaza Hub | Paid Version", "GrapeTheme")
 local Tab = Window:NewTab("Farm Tab")
 local Section = Tab:NewSection("Farm Modified")
 Section:NewButton("Start Farming", "get strong", function()
