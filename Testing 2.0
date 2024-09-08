@@ -4459,16 +4459,18 @@ local Tab = Window:NewTab("Info Tab")
 
 local Section = Tab:NewSection("Your Information")
 
-Section:NewLabel("Raw Strength: 0")
-    spawn(function()
-        while true do
-            Wait(0.001)
-            local plr = game:GetService("Players").LocalPlayer
-            local playerName = plr.Name
-            local RawS = game.ReplicatedStorage.Data[playerName].Strength.Value
-            label:UpdateLabel("Raw Strength: "..RawS)
-        end
-    end)
+local RawStrength = Section:NewLabel("Raw Strength: 0")
+
+spawn(function()
+    local plr = game:GetService("Players").LocalPlayer
+    local playerName = plr.Name
+
+    while true do
+        wait(0.1)
+        local RawS = game.ReplicatedStorage.Data[playerName].Strength.Value
+        RawStrength:UpdateLabel("Raw Strength: " .. RawS)
+    end
+end)
 
 Section:NewButton("Click Here!", "Click Button", function()
 -- Gui to Lua
