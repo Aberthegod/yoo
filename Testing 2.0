@@ -4680,6 +4680,17 @@ Section:NewButton("Strongest Player", "Show Player Strength", function()
 			end
 		)
 	end
+	game:GetService("Players").PlayerAdded:connect(
+    function(plr)
+        plr.Chatted:connect(
+            function(b4)
+                if chatlogs then
+                    plrchat(plr, b4)
+                end
+            end
+        )
+    end
+)
 	strength = {}
 for i, aR in pairs(game.ReplicatedStorage.Data:GetChildren()) do
     table.insert(strength, aR.Strength.Value)
