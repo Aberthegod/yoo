@@ -148,9 +148,9 @@ Section:NewToggle("Auto Dupe V1", "Gives Weights Toggle!", function(state)
 	while _G.AfkDuper1 do
 		wait(1)
 	simulatePurchase(5949054)
+	end
 	else
 		_G.AfkDuper1 = false
-	end
 	end
 end)
 
