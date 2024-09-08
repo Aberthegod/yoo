@@ -3575,37 +3575,81 @@ Section:NewButton("Touch Fling", "when you touch then they fly", function()
 end)
 
 Section:NewButton("Anti Fling", "You Wont Get Flinged", function()
-	local HttpService = game:GetService("HttpService")
-local TeleportService = game:GetService("TeleportService")
-local StatsService = game:GetService("Stats")
-
-local function FetchServersData()
-    local url = ("https://www.roblox.com/games/2888719930?privateServerLinkCode=65127499582508196860616317334558"):format(game.PlaceId, 150)
-    local success, response = pcall(function()
-        return HttpService:JSONDecode(game:HttpGet(url))
-    end)
-    return success and response and response.data or nil
-end
-
-local servers = FetchServersData()
-if not servers then
-    return
-end
-
-local lowestPingServer = servers[1]
-for _, server in pairs(servers) do
-    if server.maxPlayers > server.playing and server.ping < lowestPingServer.ping then
-        lowestPingServer = server
-    end
-end
-
-wait(5)
-local pingThreshold = 100
-local pingValue = tonumber(StatsService.Network.ServerStatsItem["Data Ping"]:GetValueString() or "0")
-
-if pingValue >= pingThreshold and lowestPingServer.maxPlayers > lowestPingServer.playing then
-    TeleportService:TeleportToPlaceInstance(placeId, lowestPingServer.id)
-end
+	-- // Constants \\ --
+-- [ Services ] --
+local Services = setmetatable({}, {__index = function(Self, Index)
+	local NewService = game.GetService(game, Index)
+	if NewService then
+	Self[Index] = NewService
+	end
+	return NewService
+	end})
+	
+	-- [ LocalPlayer ] --
+	local LocalPlayer = Services.Players.LocalPlayer
+	
+	-- // Functions \\ --
+	local function PlayerAdded(Player)
+	   local Detected = false
+	   local Character;
+	   local PrimaryPart;
+	
+	   local function CharacterAdded(NewCharacter)
+		   Character = NewCharacter
+		   repeat
+			   wait()
+			   PrimaryPart = NewCharacter:FindFirstChild("HumanoidRootPart")
+		   until PrimaryPart
+		   Detected = false
+	   end
+	
+	   CharacterAdded(Player.Character or Player.CharacterAdded:Wait())
+	   Player.CharacterAdded:Connect(CharacterAdded)
+	   Services.RunService.Heartbeat:Connect(function()
+		   if (Character and Character:IsDescendantOf(workspace)) and (PrimaryPart and PrimaryPart:IsDescendantOf(Character)) then
+			   if PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 or PrimaryPart.AssemblyLinearVelocity.Magnitude > 100 then
+				   if Detected == false then
+					   print("someone did something i guess")
+				   end
+				   Detected = true
+				   for i,v in ipairs(Character:GetDescendants()) do
+					   if v:IsA("BasePart") then
+						   v.CanCollide = false
+						   v.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+						   v.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+						   v.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+					   end
+				   end
+				   PrimaryPart.CanCollide = false
+				   PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+				   PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+				   PrimaryPart.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+			   end
+		   end
+	   end)
+	end
+	
+	-- // Event Listeners \\ --
+	for i,v in ipairs(Services.Players:GetPlayers()) do
+	   if v ~= LocalPlayer then
+		   PlayerAdded(v)
+	   end
+	end
+	Services.Players.PlayerAdded:Connect(PlayerAdded)
+	
+	local LastPosition = nil
+	Services.RunService.Heartbeat:Connect(function()
+	   pcall(function()
+		   local PrimaryPart = LocalPlayer.Character.PrimaryPart
+		   if PrimaryPart.AssemblyLinearVelocity.Magnitude > 250 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 250 then
+			   PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+			   PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+			   PrimaryPart.CFrame = LastPosition
+		   elseif PrimaryPart.AssemblyLinearVelocity.Magnitude < 50 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 then
+			   LastPosition = PrimaryPart.CFrame
+		   end
+	   end)
+	end)
 end)
 
 Section:NewButton("Anti Hit", "wont get hit", function()
@@ -4624,42 +4668,48 @@ Section:NewButton("Spectate Players", "Watch People", function()
 end)
 
 Section:NewButton("Strongest Player", "Show Player Strength", function()
-	strength = {}
-            for i, aR in pairs(game.ReplicatedStorage.Data:GetChildren()) do
-                table.insert(strength, aR.Strength.Value)
-                table.sort(strength)
-            end
-            higheststrength = strength[table.getn(strength)]
-            spawn(
-                function()
-                    for i, aR in pairs(game.ReplicatedStorage.Data:GetDescendants()) do
-                        if string.find(aR.Name, "Strength") and aR.Value == higheststrength then
-                            plr = game.Players.LocalPlayer.Name
-                            number = higheststrength
-                            local bm = {K = 4, M = 7, B = 10}
-                            local bn = tostring(math.floor(number))
-                            local bo
-                            for bp, bq in pairs(bm) do
-                                if #bn >= bq and #bn < bq + 3 then
-                                    bo = bp
-                                    break
-                                end
-                            end
-                            if bo then
-                                local bq = bm[bo]
-                                local br = math.floor(number / 10 ^ (bq - 2)) * 10 ^ (bq - 2)
-                                bn = string.format("%.1f", br / 10 ^ (bq - 1)) .. bo
-                            else
-                                bn = number
-                            end
-                            game:GetService("StarterGui"):SetCore(
-                                "SendNotification",
-                                {Title = "\nStrongest Player\n " .. aR.Parent.Name .. "\n" .. bn, Text = ""}
-                            )
-                        end
-                    end
-                end
-            )
+	local strength = {}
+
+	for _, aR in pairs(game.ReplicatedStorage.Data:GetChildren()) do
+		table.insert(strength, aR.Strength.Value)
+	end
+	
+	table.sort(strength)
+	local higheststrength = strength[#strength]
+	
+	spawn(function()
+		for _, aR in pairs(game.ReplicatedStorage.Data:GetDescendants()) do
+			if string.find(aR.Name, "Strength") and aR.Value == higheststrength then
+				local playerName = aR.Parent.Name
+				local number = higheststrength
+	
+				local suffixes = {K = 4, M = 7, B = 10}
+				local numStr = tostring(math.floor(number))
+				local suffix = nil
+	
+				for suffixKey, digitCount in pairs(suffixes) do
+					if #numStr >= digitCount and #numStr < digitCount + 3 then
+						suffix = suffixKey
+						break
+					end
+				end
+	
+				if suffix then
+					local digitCount = suffixes[suffix]
+					local roundedNumber = math.floor(number / 10 ^ (digitCount - 2)) * 10 ^ (digitCount - 2)
+					numStr = string.format("%.1f", roundedNumber / 10 ^ (digitCount - 1)) .. suffix
+				else
+					numStr = tostring(number)
+				end
+	
+				game:GetService("StarterGui"):SetCore(
+					"SendNotification",
+					{Title = "\nStrongest Player\n" .. playerName .. "\n" .. numStr, Text = ""}
+				)
+			end
+		end
+	end)
+	
 end)
 
 local Tab = Window:NewTab("Info Tab")
@@ -4793,55 +4843,6 @@ local Tab = Window:NewTab("Options Tab")
 
 local Section = Tab:NewSection("More Things For less lag")
 
-Section:NewButton("Ping Limiter", "Limits Ping",function()
-	local HTTPService = game:GetService("HttpService")
-local TeleportService = game:GetService("TeleportService")
-local StatsService = game:GetService("Stats")
-
-local function fetchServersData(placeId, limit)
-    local url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?limit=%d", placeId, limit)
-    local success, response = pcall(function()
-        return HTTPService:JSONDecode(game:HttpGet(url))
-    end)
-
-    if success and response and response.data then
-        return response.data
-    end
-
-    return nil
-end
-
-local placeId = game.PlaceId
-local serverLimit = 100
-local servers = fetchServersData(placeId, serverLimit)
-
-if not servers then
-    return
-end
-
-local lowestPingServer = servers[1]
-
-for _, server in pairs(servers) do
-    if server["ping"] < lowestPingServer["ping"] and server.maxPlayers > server.playing then
-        lowestPingServer = server
-    end
-end
-
-local commonLoadTime = 5
-task.wait(commonLoadTime)
-
-local pingThreshold = 100
-local serverStats = StatsService.Network.ServerStatsItem
-local dataPing = serverStats["Data Ping"]:GetValueString()
-local pingValue = tonumber(dataPing:match("(%d+)"))
-
-if pingValue >= pingThreshold then
-    TeleportService:TeleportToPlaceInstance(placeId, lowestPingServer.id)
-else
-       -- Good ping
-end
-end)
-
 Section:NewToggle("NoAnimationLift", "Removes Your Animations When You Farm!", function(state)
     if state then
         for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
@@ -4855,21 +4856,6 @@ end
 end
         end
 end)
-
-Section:NewToggle("Camera", "Disable Camera", function(state)
-    local camera = game:GetService("Workspace").CurrentCamera
-    
-    if state then
-        camera.CFrame = CFrame.new(-2000, 22000, -1000)
-    else
-        local player = game.Players.LocalPlayer
-        if player.Character and player.Character:FindFirstChild("Humanoid") then
-            camera.CameraSubject = player.Character.Humanoid
-            camera.CFrame = player.Character.Head.CFrame
-        end
-    end
-end)
-
 
 Section:NewToggle("Inventory", "hides weights", function(state)
     if state then
