@@ -249,8 +249,6 @@ Section:NewToggle("Auto Dupe V1", "Gives Weights Toggle!", function(state)
 	while _G.AfkDuper1 do
 		wait(1)
 	simulatePurchase(5949054)
-	wait(0.5)
-	simulatePurchase(5949054)
 	end
 	else
 		_G.AfkDuper1 = false
@@ -296,7 +294,7 @@ Section:NewButton("Auto Dupe V2", "Gives Weights Then Farms", function()
 			end
 			
 			while getgenv().Lifter do
-				task.wait(0.611201)
+				task.wait(finnal)
 				for i, v in pairs(LocalPlayer.Character:GetChildren()) do
 					if v.Name == "Double Weight" then
 						v:Activate()
@@ -3572,6 +3570,10 @@ wait(5.01)
 intro:Destroy()
 end)
 
+Section:NewButton("Touch Fling", "when you touch then they fly", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/yoo/main/Flingg"))()
+end)
+
 Section:NewButton("Anti Hit", "wont get hit", function()
     -- Gui to Lua
 	-- Version: 3.2
@@ -4758,26 +4760,52 @@ local Tab = Window:NewTab("Options Tab")
 local Section = Tab:NewSection("More Things For less lag")
 
 Section:NewButton("Ping Limiter", "Limits Ping",function()
-	local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
+	local HTTPService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local StatsService = game:GetService("Stats")
 
-local FixedPing = 15000
+local function fetchServersData(placeId, limit)
+    local url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?limit=%d", placeId, limit)
+    local success, response = pcall(function()
+        return HTTPService:JSONDecode(game:HttpGet(url))
+    end)
 
-local function mockPing()
-    return FixedPing / 1000
+    if success and response and response.data then
+        return response.data
+    end
+
+    return nil
 end
 
-Players.PlayerAdded:Connect(function(player)
-    player.GetNetworkPing = mockPing
-    spawn(function()
-        while true do
-            wait(5)
-            local ping = player:GetNetworkPing() * 1000
-            print("Mocked Ping:", ping .. "ms")
-        end
-    end)
-end)
+local placeId = game.PlaceId
+local serverLimit = 100
+local servers = fetchServersData(placeId, serverLimit)
 
+if not servers then
+    return
+end
+
+local lowestPingServer = servers[1]
+
+for _, server in pairs(servers) do
+    if server["ping"] < lowestPingServer["ping"] and server.maxPlayers > server.playing then
+        lowestPingServer = server
+    end
+end
+
+local commonLoadTime = 5
+task.wait(commonLoadTime)
+
+local pingThreshold = 100
+local serverStats = StatsService.Network.ServerStatsItem
+local dataPing = serverStats["Data Ping"]:GetValueString()
+local pingValue = tonumber(dataPing:match("(%d+)"))
+
+if pingValue >= pingThreshold then
+    TeleportService:TeleportToPlaceInstance(placeId, lowestPingServer.id)
+else
+       -- Good ping
+end
 end)
 
 Section:NewToggle("NoAnimationLift", "Removes Your Animations When You Farm!", function(state)
