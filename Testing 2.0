@@ -138,18 +138,18 @@ local Section = Tab:NewSection("Select Dupe")
 Section:NewToggle("Auto Dupe V1", "Gives Weights Toggle!", function(state)
 	if state then
 
-		_G.Pir = true
+		_G.AfkDuper1 = true
 		local MarketplaceService = game:GetService("MarketplaceService")
 	local LocalPlayer = game.Players.LocalPlayer
 
 	local function simulatePurchase(gamePassId)
 		MarketplaceService:SignalPromptGamePassPurchaseFinished(LocalPlayer, gamePassId, true)
 	end
-	while _G.Pir do
+	while _G.AfkDuper1 do
 		wait(1)
 	simulatePurchase(5949054)
 	else
-		_G.Pir = false
+		_G.AfkDuper1 = false
 	end
 	end
 end)
