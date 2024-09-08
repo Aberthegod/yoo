@@ -4668,58 +4668,42 @@ Section:NewButton("Spectate Players", "Watch People", function()
 end)
 
 Section:NewButton("Strongest Player", "Show Player Strength", function()
-	local strength = {}
-
-for _, aR in pairs(game.ReplicatedStorage.Data:GetChildren()) do
-    if aR:FindFirstChild("Strength") then
-        table.insert(strength, aR.Strength.Value)
-    end
-end
-
-if #strength > 0 then
+	strength = {}
+for i, aR in pairs(game.ReplicatedStorage.Data:GetChildren()) do
+    table.insert(strength, aR.Strength.Value)
     table.sort(strength)
-    local highestStrength = strength[#strength]
-
-    print("Highest Strength:", highestStrength)
-
-    spawn(function()
-        for _, aR in pairs(game.ReplicatedStorage.Data:GetDescendants()) do
-            if aR:IsA("IntValue") and string.find(aR.Name, "Strength") and aR.Value == highestStrength then
-                local playerName = aR.Parent.Name
-                local number = highestStrength
-
-                local suffixes = {K = 4, M = 7, B = 10}
-                local numStr = tostring(math.floor(number))
-                local suffix = nil
-
-                for suffixKey, digitCount in pairs(suffixes) do
-                    if #numStr >= digitCount and #numStr < digitCount + 3 then
-                        suffix = suffixKey
+end
+higheststrength = strength[table.getn(strength)]
+spawn(
+    function()
+        for i, aR in pairs(game.ReplicatedStorage.Data:GetDescendants()) do
+            if string.find(aR.Name, "Strength") and aR.Value == higheststrength then
+                plr = game.Players.LocalPlayer.Name
+                number = higheststrength
+                local bm = {K = 4, M = 7, B = 10}
+                local bn = tostring(math.floor(number))
+                local bo
+                for bp, bq in pairs(bm) do
+                    if #bn >= bq and #bn < bq + 3 then
+                        bo = bp
                         break
                     end
                 end
-
-                if suffix then
-                    local digitCount = suffixes[suffix]
-                    local roundedNumber = math.floor(number / 10 ^ (digitCount - 2)) * 10 ^ (digitCount - 2)
-                    numStr = string.format("%.1f", roundedNumber / 10 ^ (digitCount - 1)) .. suffix
+                if bo then
+                    local bq = bm[bo]
+                    local br = math.floor(number / 10 ^ (bq - 2)) * 10 ^ (bq - 2)
+                    bn = string.format("%.1f", br / 10 ^ (bq - 1)) .. bo
                 else
-                    numStr = tostring(number)
+                    bn = number
                 end
-
-                game:GetService("StarterGui"):SetCore("SendNotification", {
-                    Title = "Strongest Player",
-                    Text = playerName .. "\nStrength: " .. numStr,
-                    Duration = 3
-                })
+                game:GetService("StarterGui"):SetCore(
+                    "SendNotification",
+                    {Title = "\nStrongest Player\n " .. aR.Parent.Name .. "\n" .. bn, Text = ""}
+                )
             end
         end
-    end)
-else
-    -- Debug output if no strengths are found
-    print("No strength values found in ReplicatedStorage.Data")
-end
-
+    end
+)
 end)
 
 
