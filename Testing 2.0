@@ -4672,12 +4672,15 @@ Section:NewButton("Strongest Player", "Show Player Strength", function()
 
 	-- Collect all strength values from the data
 	for _, aR in pairs(game.ReplicatedStorage.Data:GetChildren()) do
+		print("Found Strength:", aR.Strength.Value)
 		table.insert(strength, aR.Strength.Value)
 	end
 	
 	-- Sort the strengths and find the highest value
 	table.sort(strength)
 	local higheststrength = strength[#strength]
+	
+	print("Highest Strength Found:", higheststrength)
 	
 	-- Function to find the player with the highest strength and send a notification
 	spawn(function()
@@ -4686,7 +4689,6 @@ Section:NewButton("Strongest Player", "Show Player Strength", function()
 				local playerName = aR.Parent.Name
 				local number = higheststrength
 	
-				-- Formatting the strength number
 				local suffixes = {K = 4, M = 7, B = 10}
 				local numStr = tostring(math.floor(number))
 				local suffix = nil
@@ -4705,9 +4707,10 @@ Section:NewButton("Strongest Player", "Show Player Strength", function()
 				else
 					numStr = tostring(number)
 				end
-
-				-- Send the notification
-				game:GetService("StarterGui"):SetCore("SendNotification",{
+	
+				print("Sending Notification for Player:", playerName)
+	
+				game:GetService("StarterGui"):SetCore("SendNotification", {
 					Title = "Strongest Player",
 					Text = playerName .. "\nStrength: " .. numStr,
 					Duration = 3
