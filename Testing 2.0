@@ -148,6 +148,9 @@ Section:NewToggle("Auto Dupe V1", "Gives Weights Toggle!", function(state)
 	while _G.AfkDuper1 do
 		wait(1)
 	simulatePurchase(5949054)
+	simulatePurchase(5949054)
+	simulatePurchase(5949054)
+	simulatePurchase(5949054)
 	end
 	else
 		_G.AfkDuper1 = false
@@ -200,6 +203,35 @@ Section:NewButton("Auto Dupe V2", "Gives Weights Then Farms", function()
 					end
 				end
 			end
+		end
+	end
+end)
+
+local Weightss = Section:NewLabel("Weights: 0")
+
+spawn(function()
+	while true do
+		wait(0.1)
+		local num = 0
+
+		for _, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+			if v.Name == "Double Weight" then
+				num = num + 1
+			end
+		end
+
+		if num == 0 then
+			for _, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if v.Name == "Double Weight" then
+					num = num + 1
+				end
+			end
+		end
+
+		Weightss:UpdateLabel("Weights: " .. num)
+
+		if num >= 9999999999999 then
+			break
 		end
 	end
 end)
@@ -4471,6 +4503,37 @@ spawn(function()
         RawStrength:UpdateLabel("Raw Strength: " .. RawS)
     end
 end)
+
+local Formatted = Section:NewLabel("Formatted Strength: 0")
+
+spawn(function()
+	local l = true
+
+				while(l==true) do 
+					local player = game:GetService("Players").LocalPlayer
+					local playerName = player.Name
+					wait(0.1)
+
+					local strength = game.ReplicatedStorage.Data[playerName].Strength.Value
+					local formattedStrength = strength
+
+					if formattedStrength >= 1e12 then
+						formattedStrength = string.format("%.2fT", formattedStrength / 1e12)
+					elseif formattedStrength >= 1e9 then
+						formattedStrength = string.format("%.2fB", formattedStrength / 1e9)
+					elseif formattedStrength >= 1e6 then
+						formattedStrength = string.format("%.2fM", formattedStrength / 1e6)
+					elseif formattedStrength >= 1e3 then
+						formattedStrength = string.format("%.2fK", formattedStrength / 1e3)
+					end
+
+					Formatted:UpdateLabel("Formatted Strength: "..formattedStrength)
+				end
+end)
+
+local Section = Tab:NewSection("More Information")
+
+
 
 Section:NewButton("Click Here!", "Click Button", function()
 -- Gui to Lua
