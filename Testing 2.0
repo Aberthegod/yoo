@@ -3529,7 +3529,7 @@ Section:NewButton("Anti Hit", "wont get hit", function()
 	coroutine.wrap(JIXEVS_fake_script)()
 end)
 
-local Button = Tab:NewButton("Change Graphics", "Change lighting", function()
+Section:NewButton("Change Graphics", "Change lighting", function()
 	-- Midnight Crazzy Grafix
 if not game:IsLoaded() then
     game.Loaded:Wait()
@@ -3765,7 +3765,7 @@ L.ShadowSoftness = 0
 L.Ambient = Color3.fromRGB(59, 33, 27)
 end)
 
-local Button = Tab:NewButton("Click To Teleport","Teleport's With Alt + left Click", function()
+Section:NewButton("Click To Teleport","Teleport's With Alt + left Click", function()
 	game:GetService("StarterGui"):SetCore("SendNotification",{
 		Title    = "Click TP Enabled!",
 		Text     = "Tap Left Alt to TP to your mouse.",
@@ -3784,7 +3784,7 @@ local Button = Tab:NewButton("Click To Teleport","Teleport's With Alt + left Cli
 	print("Successfully Executed Script!")
 end)
 
-local Button = Tab:NewButton("FreeCam", "Do Shift + p To Activate", function()
+Section:NewButton("FreeCam", "Do Shift + p To Activate", function()
 	------------------------------------------------------------------------
 -- Freecam
 -- Cinematic free camera for spectating and video production.
